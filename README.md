@@ -49,7 +49,7 @@ npm run dev
 
 ## 📦 部署指南 (GitHub Pages)
 
-本项目内置了 GitHub Actions 工作流，可自动构建并部署到 GitHub Pages。
+本项目使用 GitHub Actions 工作流进行构建和部署到 GitHub Pages。
 
 1.  **提交代码**到 GitHub 仓库。
 2.  **配置密钥**:
@@ -59,12 +59,12 @@ npm run dev
     *   Value: 你的 Google Gemini API Key。
 3.  **禁用自动部署**:
     *   进入仓库 **Settings** -> **Pages**。
-    *   在 **Build and deployment** 部分，确保 **Source** 设置为 **GitHub Actions**（而非默认的 GitHub Actions 或 Legacy Branch）。
-    *   如果存在旧的部署（如 pages-build-deployment），需要将其禁用以避免冲突。
+    *   在 **Build and deployment** 部分，将 **Source** 设置为 **GitHub Actions**。
+    *   禁用任何旧的部署源（如 pages-build-deployment）以避免冲突。
 4.  **配置 Pages**:
     *   在 **Settings** -> **Pages** 中，将 **Source** 设置为 **GitHub Actions**。
 5.  **触发部署**:
-    *   推送代码到 `main` 分支，或者在 Actions 标签页手动触发 "Deploy Website to GitHub Pages" 工作流。
+    *   推送代码到 `main` 分支，或者在 Actions 标签页手动触发 "Clean Deploy to GitHub Pages" 工作流。
 
 ## 🤝 开源贡献
 
