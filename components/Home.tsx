@@ -28,11 +28,11 @@ const Home: React.FC<HomeProps> = ({ setPage }) => {
       </div>
 
       {/* Intro */}
-      <h1 className="serif text-4xl text-slate-100 mb-8 tracking-widest font-light drop-shadow-lg">行者</h1>
+      <h1 className="serif text-4xl text-slate-50 mb-8 tracking-wider font-normal drop-shadow-lg">行者</h1>
       
       {/* Updated Bio with deeper typography */}
-      <div className="text-slate-400 font-light mb-16 text-sm serif leading-loose text-center max-w-lg italic opacity-80">
-        <p className="mb-2">“我也不是虔诚的基督教徒，我只是找不到妈妈，麻痹自己。</p>
+      <div className="text-slate-300 font-normal mb-16 text-base serif leading-relaxed text-center max-w-lg not-italic">
+        <p className="mb-4">“我也不是虔诚的基督教徒，我只是找不到妈妈，麻痹自己。</p>
         <p>而你也只是个假和尚，既心虚，又空虚。”</p>
       </div>
 
@@ -65,7 +65,7 @@ const Home: React.FC<HomeProps> = ({ setPage }) => {
         />
       </div>
 
-      <footer className="mt-20 text-[10px] tracking-widest text-slate-600 serif uppercase opacity-60">
+      <footer className="mt-20 text-xs tracking-widest text-slate-500 serif uppercase">
         © {new Date().getFullYear()} • 托管于 GitHub
       </footer>
     </div>
@@ -88,7 +88,7 @@ const NavCard = ({ title, subtitle, onClick, highlight = false, delay }: { title
       <span className={`block serif text-xl tracking-wide transition-colors duration-300 ${highlight ? 'text-slate-100' : 'text-slate-400 group-hover:text-slate-200'}`}>
         {title}
       </span>
-      <span className="text-[9px] tracking-[0.3em] text-slate-600 group-hover:text-emerald-500/70 transition-colors duration-300 uppercase font-medium">
+      <span className="text-xs tracking-widest text-slate-500 group-hover:text-emerald-400 transition-colors duration-300 uppercase font-semibold">
         {subtitle}
       </span>
     </div>

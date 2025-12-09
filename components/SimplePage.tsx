@@ -38,17 +38,17 @@ const BlogList = () => {
   return (
     <div className="space-y-16">
       <header className="border-b border-white/5 pb-8 mb-8">
-        <h2 className="serif text-3xl text-slate-200 tracking-wide">随笔</h2>
-        <p className="text-slate-600 mt-2 serif italic text-sm">虚空絮语</p>
+        <h2 className="serif text-3xl text-slate-100 tracking-wide font-normal">随笔</h2>
+        <p className="text-slate-400 mt-2 serif text-sm not-italic">虚空絮语</p>
       </header>
       <div className="space-y-12">
         {posts.map(post => (
           <article key={post.id} className="group cursor-pointer">
             <div className="flex items-baseline justify-between mb-3">
-                <h3 className="text-xl text-slate-300 group-hover:text-emerald-400 transition-colors duration-300 font-normal serif">{post.title}</h3>
-                <span className="text-[10px] text-slate-600 font-mono tracking-wider">{post.date}</span>
+                <h3 className="text-xl text-slate-200 group-hover:text-emerald-300 transition-colors duration-300 font-normal serif">{post.title}</h3>
+                <span className="text-xs text-slate-500 font-mono tracking-wider">{post.date}</span>
             </div>
-            <p className="text-slate-500 text-sm leading-loose font-light line-clamp-2 group-hover:text-slate-400 transition-colors">{post.excerpt}</p>
+            <p className="text-slate-400 text-base leading-relaxed font-normal line-clamp-2 group-hover:text-slate-300 transition-colors">{post.excerpt}</p>
           </article>
         ))}
       </div>
@@ -66,14 +66,14 @@ const ProjectList = () => {
   return (
     <div className="space-y-16">
       <header className="border-b border-white/5 pb-8 mb-8">
-        <h2 className="serif text-3xl text-slate-200 tracking-wide">造物</h2>
-        <p className="text-slate-600 mt-2 serif italic text-sm">代码遗迹</p>
+        <h2 className="serif text-3xl text-slate-100 tracking-wide font-normal">造物</h2>
+        <p className="text-slate-400 mt-2 serif text-sm not-italic">代码遗迹</p>
       </header>
       <div className="grid grid-cols-1 gap-8">
         {projects.map(p => (
           <div key={p.id} className="group border border-white/5 bg-white/[0.02] p-8 rounded-sm hover:border-white/10 hover:bg-white/[0.04] transition-all duration-500">
-            <h3 className="text-xl text-slate-200 mb-3 serif">{p.title}</h3>
-            <p className="text-slate-500 text-sm mb-6 leading-loose font-light">{p.description}</p>
+            <h3 className="text-xl text-slate-100 mb-3 serif font-normal">{p.title}</h3>
+            <p className="text-slate-400 text-base mb-6 leading-relaxed font-normal">{p.description}</p>
             <div className="flex gap-2">
               {p.tech.map(t => (
                 <span key={t} className="text-[9px] uppercase tracking-wider border border-white/5 text-slate-500 px-3 py-1 rounded-sm">{t}</span>
@@ -91,7 +91,7 @@ const AboutSection = () => (
     <header className="border-b border-white/5 pb-8 mb-8">
       <h2 className="serif text-3xl text-slate-200 tracking-wide">关于</h2>
     </header>
-    <div className="prose prose-invert prose-slate max-w-none text-slate-400 font-light leading-loose tracking-wide">
+    <div className="prose prose-invert prose-slate max-w-none text-slate-300 font-normal leading-relaxed tracking-wide">
       <p>
         我是一名游走于逻辑与感性边缘的开发者。
       </p>
