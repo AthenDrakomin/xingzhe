@@ -13,7 +13,6 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
     if (isUser) return;
     if (displayedText === message.text) return;
 
-    let index = 0;
     const speed = message.text.length > 100 ? 15 : 30; 
     
     const intervalId = setInterval(() => {
