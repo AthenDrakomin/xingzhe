@@ -57,10 +57,13 @@ npm run dev
     *   点击 **New repository secret**。
     *   Name: `VITE_API_KEY`
     *   Value: 你的 Google Gemini API Key。
-3.  **配置 Pages**:
+3.  **禁用自动部署**:
     *   进入仓库 **Settings** -> **Pages**。
-    *   在 **Build and deployment** 部分，将 **Source** 设置为 **GitHub Actions**。
-4.  **触发部署**:
+    *   在 **Build and deployment** 部分，确保 **Source** 设置为 **GitHub Actions**（而非默认的 GitHub Actions 或 Legacy Branch）。
+    *   如果存在旧的部署（如 pages-build-deployment），需要将其禁用以避免冲突。
+4.  **配置 Pages**:
+    *   在 **Settings** -> **Pages** 中，将 **Source** 设置为 **GitHub Actions**。
+5.  **触发部署**:
     *   推送代码到 `main` 分支，或者在 Actions 标签页手动触发 "Deploy to GitHub Pages" 工作流。
 
 ## 🤝 开源贡献
