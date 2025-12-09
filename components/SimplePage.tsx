@@ -20,7 +20,7 @@ const SimplePage: React.FC<SimplePageProps> = ({ type }) => {
   };
 
   return (
-    <div className="max-w-2xl mx-auto p-6 pt-12 animate-fade-in-up h-full overflow-y-auto custom-scrollbar">
+    <div className="max-w-2xl mx-auto p-6 pt-12 animate-fade-in-up h-full overflow-y-auto custom-scrollbar bg-[#020617]" style={{ backgroundColor: '#020617' }}>
       {renderContent()}
     </div>
   );

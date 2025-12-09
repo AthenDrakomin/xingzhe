@@ -7,7 +7,7 @@ interface HomeProps {
 
 const Home: React.FC<HomeProps> = ({ setPage }) => {
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen p-6 max-w-2xl mx-auto animate-fade-in-up">
+    <div className="flex flex-col items-center justify-center min-h-screen p-6 max-w-2xl mx-auto animate-fade-in-up bg-[#020617]" style={{ backgroundColor: '#020617' }}>
       {/* Avatar with Breathing Effect */}
       <div className="relative w-32 h-32 mb-10 group cursor-pointer">
         {/* Animated outer glow - adjusted for new dark theme */}
@@ -66,7 +66,7 @@ const Home: React.FC<HomeProps> = ({ setPage }) => {
       </div>
 
       {/* Charity Support Section */}
-      <div className="mt-16 mb-8 p-6 bg-gradient-to-r from-emerald-900/20 to-teal-900/20 border border-emerald-800/30 rounded-lg backdrop-blur-sm w-full max-w-md mx-auto">
+      <div className="mt-16 mb-8 p-6 bg-gradient-to-r from-emerald-900/20 to-teal-900/20 border border-emerald-800/30 rounded-lg backdrop-blur-sm w-full max-w-md mx-auto bg-[#020617]/80">
         <div className="flex items-center justify-center mb-4">
           {/* Love Relay Badge */}
           <div className="relative inline-flex items-center justify-center mr-3">

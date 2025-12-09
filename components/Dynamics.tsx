@@ -81,7 +81,7 @@ const Dynamics: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col h-full relative">
+    <div className="flex flex-col h-full relative bg-[#020617]" style={{ backgroundColor: '#020617' }}>
       <div className="flex-1 overflow-y-auto p-4 custom-scrollbar">
         <div className="max-w-2xl mx-auto space-y-8 pb-32 pt-8">
           {/* Header for the section */}
