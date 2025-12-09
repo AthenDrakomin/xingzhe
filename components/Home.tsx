@@ -28,11 +28,11 @@ const Home: React.FC<HomeProps> = ({ setPage }) => {
       </div>
 
       {/* Intro */}
-      <h1 className="serif text-4xl text-slate-50 mb-8 tracking-wider font-normal drop-shadow-lg">行者</h1>
+      <h1 className="serif text-4xl text-slate-100 mb-8 tracking-widest font-light drop-shadow-lg">行者</h1>
       
       {/* Updated Bio with deeper typography */}
-      <div className="text-slate-300 font-normal mb-16 text-base serif leading-relaxed text-center max-w-lg not-italic">
-        <p className="mb-4">“我也不是虔诚的基督教徒，我只是找不到妈妈，麻痹自己。</p>
+      <div className="text-slate-400 font-light mb-16 text-sm serif leading-loose text-center max-w-lg italic opacity-80">
+        <p className="mb-2">“我也不是虔诚的基督教徒，我只是找不到妈妈，麻痹自己。</p>
         <p>而你也只是个假和尚，既心虚，又空虚。”</p>
       </div>
 
@@ -68,41 +68,47 @@ const Home: React.FC<HomeProps> = ({ setPage }) => {
       {/* Charity Support Section */}
       <div className="mt-16 mb-8 p-6 bg-gradient-to-r from-emerald-900/20 to-teal-900/20 border border-emerald-800/30 rounded-lg backdrop-blur-sm w-full max-w-md mx-auto">
         <div className="flex items-center justify-center mb-4">
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-emerald-400 mr-3" viewBox="0 0 20 20" fill="currentColor">
-            <path fillRule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clipRule="evenodd" />
-          </svg>
+          {/* Love Relay Badge */}
+          <div className="relative inline-flex items-center justify-center mr-3">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 text-emerald-400" viewBox="0 0 20 20" fill="currentColor">
+              <path fillRule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clipRule="evenodd" />
+            </svg>
+            <div className="absolute -top-2 -right-2 bg-amber-400 text-amber-900 text-[8px] font-bold px-1.5 py-0.5 rounded-full border-2 border-emerald-900">
+              BRO
+            </div>
+          </div>
           <h3 className="text-lg font-semibold text-emerald-300 serif">爱心传递</h3>
         </div>
         <p className="text-slate-300 text-center text-sm mb-4 leading-relaxed">
-          支持 <a href="https://patreon.com/borderlessrelief" target="_blank" rel="noopener noreferrer" className="text-emerald-400 hover:text-emerald-300 underline transition-colors">无国界援助组织</a>，
-          让爱跨越边界，温暖每个需要帮助的心灵。
+          Support <a href="https://www.patreon.com/cw/borderlessrelief" target="_blank" rel="noopener noreferrer" className="text-emerald-400 hover:text-emerald-300 underline transition-colors">Borderless Relief Organization (BRO)</a>,
+          where love transcends borders and warms every heart in need.
         </p>
         <div className="flex justify-center gap-4">
           <button 
-            onClick={() => window.open('https://patreon.com/borderlessrelief', '_blank')}
+            onClick={() => window.open('https://www.patreon.com/cw/borderlessrelief', '_blank')}
             className="px-4 py-2 bg-emerald-700 hover:bg-emerald-600 text-white text-sm rounded-sm transition-colors duration-300"
           >
             前往支持
           </button>
           <button 
             onClick={() => {
-              const shareText = '加入爱心传递，支持无国界援助组织，让爱跨越边界。';
-              const shareUrl = 'https://patreon.com/borderlessrelief';
+              const shareText = '🌟 Join the Love Relay! Support Borderless Relief Organization (BRO) - where compassion knows no boundaries. Be part of something bigger! 💙';
+              const shareUrl = 'https://www.patreon.com/cw/borderlessrelief';
               if (navigator.share) {
                 navigator.share({
-                  title: '爱心传递 - 无国界援助组织',
+                  title: '❤️ Love Relay - Borderless Relief Organization (BRO)',
                   text: shareText,
                   url: shareUrl,
                 });
               } else {
                 // Fallback for browsers that don't support Web Share API
                 const el = document.createElement('textarea');
-                el.value = `${shareText} ${shareUrl}`;
+                el.value = `${shareText}\n\n${shareUrl}`;
                 document.body.appendChild(el);
                 el.select();
                 document.execCommand('copy');
                 document.body.removeChild(el);
-                alert('链接已复制到剪贴板！');
+                alert('🔗 Link copied to clipboard! Share the love! ❤️');
               }
             }}
             className="px-4 py-2 border border-emerald-700 text-emerald-400 hover:bg-emerald-900/30 text-sm rounded-sm transition-colors duration-300"
@@ -112,7 +118,7 @@ const Home: React.FC<HomeProps> = ({ setPage }) => {
         </div>
       </div>
 
-      <footer className="text-xs tracking-widest text-slate-500 serif uppercase">
+      <footer className="mt-20 text-[10px] tracking-widest text-slate-600 serif uppercase opacity-60">
         © {new Date().getFullYear()} • 托管于 GitHub
       </footer>
     </div>
@@ -135,7 +141,7 @@ const NavCard = ({ title, subtitle, onClick, highlight = false, delay }: { title
       <span className={`block serif text-xl tracking-wide transition-colors duration-300 ${highlight ? 'text-slate-100' : 'text-slate-400 group-hover:text-slate-200'}`}>
         {title}
       </span>
-      <span className="text-xs tracking-widest text-slate-500 group-hover:text-emerald-400 transition-colors duration-300 uppercase font-semibold">
+      <span className="text-[9px] tracking-[0.3em] text-slate-600 group-hover:text-emerald-500/70 transition-colors duration-300 uppercase font-medium">
         {subtitle}
       </span>
     </div>

@@ -4,49 +4,39 @@
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 ::-webkit-scrollbar-track {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: #475569;
-  border-radius: 4px;
+  background: #334155;
+  border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #64748b;
+  background: #475569;
 }
 
-/* Improve text clarity */
+/* Improve text clarity for better readability */
 body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+  letter-spacing: 0.02em;
 }
 
-/* Enhance link visibility */
-a {
-  color: #6ee7b7;
-  text-decoration: none;
+/* Slightly increase font weight for better visibility */
+.font-light {
+  font-weight: 300;
 }
 
-a:hover {
-  color: #a7f3d0;
+/* Improve contrast for important text */
+.text-slate-100 {
+  color: #f8fafc;
 }
-
-/* Improve heading contrast */
-h1, h2, h3, h4, h5, h6 {
+.text-slate-200 {
   color: #f1f5f9;
-  font-weight: 500;
 }
-
-/* Increase base font size for better readability */
-html {
-  font-size: 16px;
-}
-
-/* Improve form input visibility */
-input, textarea, button {
-  font-family: inherit;
-  font-size: 1rem;
+.text-slate-300 {
+  color: #cbd5e1;
 }

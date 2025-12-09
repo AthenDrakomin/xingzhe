@@ -86,8 +86,8 @@ const Dynamics: React.FC = () => {
         <div className="max-w-2xl mx-auto space-y-8 pb-32 pt-8">
           {/* Header for the section */}
           <div className="text-center py-8 mb-4 border-b border-white/5">
-             <h2 className="serif text-xl text-slate-200 tracking-wider font-normal">同病相怜 • 动态</h2>
-             <p className="text-xs text-slate-500 mt-2 tracking-widest uppercase">Echoes in the Void</p>
+             <h2 className="serif text-xl text-slate-300 tracking-wider">同病相怜 • 动态</h2>
+             <p className="text-[10px] text-slate-600 mt-2 tracking-[0.3em] uppercase">Echoes in the Void</p>
           </div>
 
           {chatState.messages.map((msg) => (
