@@ -65,7 +65,54 @@ const Home: React.FC<HomeProps> = ({ setPage }) => {
         />
       </div>
 
-      <footer className="mt-20 text-xs tracking-widest text-slate-500 serif uppercase">
+      {/* Charity Support Section */}
+      <div className="mt-16 mb-8 p-6 bg-gradient-to-r from-emerald-900/20 to-teal-900/20 border border-emerald-800/30 rounded-lg backdrop-blur-sm w-full max-w-md mx-auto">
+        <div className="flex items-center justify-center mb-4">
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-emerald-400 mr-3" viewBox="0 0 20 20" fill="currentColor">
+            <path fillRule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clipRule="evenodd" />
+          </svg>
+          <h3 className="text-lg font-semibold text-emerald-300 serif">爱心传递</h3>
+        </div>
+        <p className="text-slate-300 text-center text-sm mb-4 leading-relaxed">
+          支持 <a href="https://patreon.com/borderlessrelief" target="_blank" rel="noopener noreferrer" className="text-emerald-400 hover:text-emerald-300 underline transition-colors">无国界援助组织</a>，
+          让爱跨越边界，温暖每个需要帮助的心灵。
+        </p>
+        <div className="flex justify-center gap-4">
+          <button 
+            onClick={() => window.open('https://patreon.com/borderlessrelief', '_blank')}
+            className="px-4 py-2 bg-emerald-700 hover:bg-emerald-600 text-white text-sm rounded-sm transition-colors duration-300"
+          >
+            前往支持
+          </button>
+          <button 
+            onClick={() => {
+              const shareText = '加入爱心传递，支持无国界援助组织，让爱跨越边界。';
+              const shareUrl = 'https://patreon.com/borderlessrelief';
+              if (navigator.share) {
+                navigator.share({
+                  title: '爱心传递 - 无国界援助组织',
+                  text: shareText,
+                  url: shareUrl,
+                });
+              } else {
+                // Fallback for browsers that don't support Web Share API
+                const el = document.createElement('textarea');
+                el.value = `${shareText} ${shareUrl}`;
+                document.body.appendChild(el);
+                el.select();
+                document.execCommand('copy');
+                document.body.removeChild(el);
+                alert('链接已复制到剪贴板！');
+              }
+            }}
+            className="px-4 py-2 border border-emerald-700 text-emerald-400 hover:bg-emerald-900/30 text-sm rounded-sm transition-colors duration-300"
+          >
+            分享传播
+          </button>
+        </div>
+      </div>
+
+      <footer className="text-xs tracking-widest text-slate-500 serif uppercase">
         © {new Date().getFullYear()} • 托管于 GitHub
       </footer>
     </div>
