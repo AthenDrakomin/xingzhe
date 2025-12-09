@@ -64,7 +64,7 @@ npm run dev
 4.  **配置 Pages**:
     *   在 **Settings** -> **Pages** 中，将 **Source** 设置为 **GitHub Actions**。
 5.  **触发部署**:
-    *   推送代码到 `main` 分支，或者在 Actions 标签页手动触发 "Deploy to GitHub Pages" 工作流。
+    *   推送代码到 `main` 分支，或者在 Actions 标签页手动触发 "Deploy Website to GitHub Pages" 工作流。
 
 ## 🤝 开源贡献
 
