@@ -23,8 +23,8 @@
 
 ### 1. 克隆仓库
 ```bash
-git clone <repository-url>
-cd digital-sanctuary
+git clone https://github.com/AthenDrakomin/xingzhe.git
+cd xingzhe
 ```
 
 ### 2. 安装依赖
@@ -63,6 +63,16 @@ npm run dev
 4.  **触发部署**:
     *   推送代码到 `main` 分支，或者在 Actions 标签页手动触发 "Deploy to GitHub Pages" 工作流。
 
+## 🤝 开源贡献
+
+欢迎任何形式的贡献！如果你有任何想法或建议，请提交 Issue 或 Pull Request。
+
+1. Fork 本仓库
+2. 创建你的特性分支 (`git checkout -b feature/AmazingFeature`)
+3. 提交你的更改 (`git commit -m 'Add some amazing feature'`)
+4. 推送到分支 (`git push origin feature/AmazingFeature`)
+5. 开启一个 Pull Request
+
 ## 📄 许可证
 
-MIT License
+本项目采用 MIT 许可证 - 查看 [LICENSE](LICENSE) 文件了解更多详情。
