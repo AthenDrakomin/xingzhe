@@ -32,11 +32,11 @@ let chatInstance: Chat | null = null;
 let aiInstance: GoogleGenAI | null = null;
 
 export const initializeChat = () => {
-  // Use process.env.API_KEY exclusively as per guidelines.
-  const apiKey = process.env.API_KEY;
+  // Use VITE_API_KEY for client-side environment variable
+  const apiKey = import.meta.env.VITE_API_KEY || process.env.VITE_API_KEY;
 
   if (!apiKey) {
-    console.error("API_KEY is missing. Please set API_KEY in your environment variables.");
+    console.error("API_KEY is missing. Please set VITE_API_KEY in your environment variables.");
     return null;
   }
 
