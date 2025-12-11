@@ -40,23 +40,27 @@ npm install
 ```
 
 ### 3. 配置环境变量
-在项目根目录创建一个 `.env` 文件。你需要一个 Google Gemini API Key。
+在项目根目录创建一个 `.env` 文件。参考 `.env.example` 文件创建您的配置。
 
-```env
-# .env
-VITE_API_KEY=your_actual_api_key_here
+```bash
+# 复制示例配置文件
+ cp .env.example .env
 ```
 
-对于CMS功能，你还需要配置Firebase环境变量：
+然后在 `.env` 文件中填入您的实际配置：
 
 ```env
 # .env
+# Firebase配置
 REACT_APP_FIREBASE_API_KEY=your_firebase_api_key
 REACT_APP_FIREBASE_AUTH_DOMAIN=your_firebase_auth_domain
 REACT_APP_FIREBASE_PROJECT_ID=your_firebase_project_id
 REACT_APP_FIREBASE_STORAGE_BUCKET=your_firebase_storage_bucket
 REACT_APP_FIREBASE_MESSAGING_SENDER_ID=your_firebase_messaging_sender_id
 REACT_APP_FIREBASE_APP_ID=your_firebase_app_id
+
+# Gemini API密钥
+VITE_API_KEY=your_gemini_api_key
 ```
 
 ### 4. 启动开发服务器
@@ -65,10 +69,24 @@ npm run dev
 ```
 打开浏览器访问 `http://localhost:5173`。
 
-### 5. 访问CMS管理后台
+### 5. 常见问题排查
+
+#### Firebase配置错误
+如果您遇到 `Firebase: Error (auth/invalid-api-key)` 错误，请检查：
+1. 确保 `.env` 文件已正确创建并包含有效的Firebase配置
+2. 确保环境变量名称与 `.env.example` 文件中的名称完全一致
+3. 重启开发服务器以使环境变量生效
+
+#### 白屏问题
+如果页面显示空白但控制台没有错误，请检查：
+1. 确保所有必需的环境变量都已正确配置
+2. 检查浏览器控制台是否有其他错误信息
+3. 清除浏览器缓存并重新加载页面
+
+### 6. 访问CMS管理后台
 CMS管理后台可通过 `/cms` 路径访问。首次使用需要创建管理员账户并登录。
 
-### 6. CMS开发
+### 7. CMS开发
 
 #### 目录结构
 ```bash
@@ -121,7 +139,7 @@ src/cms/
 5.  **触发部署**:
     *   推送代码到 `main` 分支，或者在 Actions 标签页手动触发 "Clean Deploy to GitHub Pages" 工作流。
 
-### CMS部署注意事项
+### 8. CMS部署注意事项
 
 1. **Firebase项目设置**:
    - 访问[Firebase控制台](https://console.firebase.google.com/)
@@ -143,7 +161,7 @@ src/cms/
    - `package.json`
    - `vite.config.ts`
 
-## 🔐 权限系统
+## 9. 🔐 权限系统
 
 本CMS系统实现了基于角色的访问控制(RBAC)，支持三种用户角色：
 
@@ -168,7 +186,7 @@ src/cms/
 
 详细的权限矩阵和实现细节请参阅 [CMS权限系统说明](src/cms/PERMISSIONS.md)。
 
-## 🧪 测试
+## 10. 🧪 测试
 
 本项目包含完整的测试套件，确保系统的稳定性和可靠性：
 
@@ -191,7 +209,7 @@ npm run test:unit
 
 详细的测试计划和执行步骤请参阅 [CMS测试计划](src/cms/TESTING.md) 和 [测试总结报告](src/cms/TEST_SUMMARY.md)。
 
-## 🤝 开源贡献
+## 11. 🤝 开源贡献
 
 欢迎任何形式的贡献！如果你有任何想法或建议，请提交 Issue 或 Pull Request。
 
@@ -201,6 +219,6 @@ npm run test:unit
 4. 推送到分支 (`git push origin feature/AmazingFeature`)
 5. 开启一个 Pull Request
 
-## 📄 许可证
+## 12. 📄 许可证
 
 本项目采用 MIT 许可证 - 查看 [LICENSE](LICENSE) 文件了解更多详情。
