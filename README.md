@@ -61,6 +61,9 @@ REACT_APP_FIREBASE_APP_ID=your_firebase_app_id
 
 # Gemini API密钥
 VITE_API_KEY=your_gemini_api_key
+
+# AI提供商选择 (gemini 或 ollama)
+VITE_AI_PROVIDER=gemini
 ```
 
 ### 4. 启动开发服务器
@@ -69,7 +72,29 @@ npm run dev
 ```
 打开浏览器访问 `http://localhost:5173`。
 
-### 5. 常见问题排查
+### 5. AI提供商切换
+
+本项目支持两种AI提供商：
+
+1. **Google Gemini** (默认)
+   - 需要Google API密钥
+   - 在线服务，需要网络连接
+   - 在 `.env` 文件中设置 `VITE_AI_PROVIDER=gemini`
+
+2. **Ollama** (本地免费方案)
+   - 完全免费，本地运行
+   - 不需要网络连接
+   - 在 `.env` 文件中设置 `VITE_AI_PROVIDER=ollama`
+
+#### 使用Ollama的步骤：
+1. 访问 https://ollama.com/ 下载并安装Ollama
+2. 安装完成后，在终端运行：
+   ```bash
+   ollama run llama2-chinese
+   ```
+3. 在 `.env` 文件中设置 `VITE_AI_PROVIDER=ollama`
+
+### 6. 常见问题排查
 
 #### Firebase配置错误
 如果您遇到 `Firebase: Error (auth/invalid-api-key)` 错误，请检查：

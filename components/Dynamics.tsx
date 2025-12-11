@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { ChatState, Message, Role } from '../types';
-import { sendMessageToGemini, initializeChat } from '../services/gemini';
+import { sendMessageToAI, initializeAI, setAIProvider, AIProvider } from '../services/aiProvider';
 import ChatMessage from './ChatMessage';
 import Button from './Button';
 
@@ -17,7 +17,7 @@ const Dynamics: React.FC = () => {
   
   // Initialize on mount
   useEffect(() => {
-    initializeChat();
+    initializeAI();
     const timer = setTimeout(() => {
         setChatState(prev => ({
             ...prev,
@@ -75,7 +75,7 @@ const Dynamics: React.FC = () => {
     }));
 
     try {
-      const responseText = await sendMessageToGemini(userMsgText);
+      const responseText = await sendMessageToAI(userMsgText);
       
       // Validate AI response
       if (!responseText || responseText.trim().length === 0) {
@@ -96,7 +96,7 @@ const Dynamics: React.FC = () => {
       }));
 
     } catch (err) {
-      console.error("Error sending message to Gemini:", err);
+      console.error("Error sending message to AI:", err);
       setChatState((prev) => ({
         ...prev,
         isLoading: false,
