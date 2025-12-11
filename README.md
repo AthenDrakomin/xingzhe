@@ -74,7 +74,7 @@ npm run dev
 
 ### 5. AI提供商切换
 
-本项目支持两种AI提供商：
+本项目支持三种AI提供商：
 
 1. **Google Gemini** (默认)
    - 需要Google API密钥
@@ -86,6 +86,11 @@ npm run dev
    - 不需要网络连接
    - 在 `.env` 文件中设置 `VITE_AI_PROVIDER=ollama`
 
+3. **OpenAI** (兼容方案)
+   - 需要OpenAI API密钥
+   - 在线服务，需要网络连接
+   - 在 `.env` 文件中设置 `VITE_AI_PROVIDER=openai`
+
 #### 使用Ollama的步骤：
 1. 访问 https://ollama.com/ 下载并安装Ollama
 2. 安装完成后，在终端运行：
@@ -93,6 +98,10 @@ npm run dev
    ollama run llama2-chinese
    ```
 3. 在 `.env` 文件中设置 `VITE_AI_PROVIDER=ollama`
+
+#### 使用OpenAI的步骤：
+1. 访问 https://platform.openai.com/ 注册并获取API密钥
+2. 在 `.env` 文件中设置 `VITE_AI_PROVIDER=openai`
 
 ### 6. 常见问题排查
 

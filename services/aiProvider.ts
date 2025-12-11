@@ -1,10 +1,12 @@
 import { sendMessageToGemini } from './gemini';
 import { sendMessageToOllama } from './ollama';
+import { sendMessageToOpenAI } from './openai';
 
 // AI提供商枚举
 export enum AIProvider {
   GEMINI = 'gemini',
-  OLLAMA = 'ollama'
+  OLLAMA = 'ollama',
+  OPENAI = 'openai'
 }
 
 // 当前使用的AI提供商
@@ -15,6 +17,10 @@ let currentProvider: AIProvider = (() => {
   
   if (provider === 'ollama') {
     return AIProvider.OLLAMA;
+  }
+  
+  if (provider === 'openai') {
+    return AIProvider.OPENAI;
   }
   
   // 默认使用Gemini
@@ -38,6 +44,8 @@ export const sendMessageToAI = async (message: string): Promise<string> => {
       return sendMessageToGemini(message);
     case AIProvider.OLLAMA:
       return sendMessageToOllama(message);
+    case AIProvider.OPENAI:
+      return sendMessageToOpenAI(message);
     default:
       throw new Error(`不支持的AI提供商: ${currentProvider}`);
   }
@@ -54,5 +62,10 @@ export const initializeAI = () => {
   // Ollama不需要特殊的初始化
   if (currentProvider === AIProvider.OLLAMA) {
     console.log('Ollama AI service ready');
+  }
+  
+  // OpenAI不需要特殊的初始化
+  if (currentProvider === AIProvider.OPENAI) {
+    console.log('OpenAI AI service ready');
   }
 };
