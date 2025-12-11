@@ -7,22 +7,32 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "deploy": "gh-pages -d dist"
+    "deploy": "gh-pages -d dist",
+    "test": "node src/cms/test/run-tests.js",
+    "test:unit": "jest"
   },
   "dependencies": {
     "@google/genai": "^1.31.0",
+    "firebase": "^12.6.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-markdown": "^10.1.0",
+    "react-router-dom": "^7.10.1",
+    "remark-gfm": "^4.0.1",
+    "swr": "^2.3.7"
   },
   "devDependencies": {
-    "@types/node": "^24.10.2",
+    "@types/jest": "^30.0.0",
+    "@types/node": "^24.10.3",
     "@types/react": "^18.2.66",
     "@types/react-dom": "^18.2.22",
     "@vitejs/plugin-react": "^4.2.1",
     "autoprefixer": "^10.4.19",
     "gh-pages": "^6.3.0",
+    "jest": "^30.2.0",
     "postcss": "^8.4.38",
     "tailwindcss": "^3.4.3",
+    "ts-jest": "^29.4.6",
     "typescript": "^5.2.2",
     "vite": "^5.2.0"
   }

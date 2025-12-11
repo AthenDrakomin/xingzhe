@@ -10,6 +10,7 @@
 *   **AI 哲学伴侣**: 集成 Gemini 2.5 Flash 模型，定制化 System Prompt（假和尚人设），提供富含哲理与共情的对话体验。
 *   **流畅交互**: 采用 React + Vite 构建，配合 Tailwind CSS 实现丝滑的过渡动画与响应式设计。
 *   **完全响应式**: 适配桌面端与移动端，提供原生般的浏览体验。
+*   **无服务器CMS**: 内置基于Firebase的无服务器内容管理系统，支持文章、页面和媒体管理。
 
 ## 🛠 技术栈 (Tech Stack)
 
@@ -17,6 +18,7 @@
 *   **构建工具**: Vite
 *   **样式方案**: Tailwind CSS (自定义动画, 排版)
 *   **AI 模型**: Google Gemini API (`@google/genai`)
+*   **CMS后端**: Firebase (Firestore, Authentication, Storage)
 *   **部署环境**: GitHub Pages (GitHub Actions CI/CD)
 
 ## 🚀 本地开发 (Local Development)
@@ -41,11 +43,26 @@ npm install
 VITE_API_KEY=your_actual_api_key_here
 ```
 
+对于CMS功能，你还需要配置Firebase环境变量：
+
+```env
+# .env
+REACT_APP_FIREBASE_API_KEY=your_firebase_api_key
+REACT_APP_FIREBASE_AUTH_DOMAIN=your_firebase_auth_domain
+REACT_APP_FIREBASE_PROJECT_ID=your_firebase_project_id
+REACT_APP_FIREBASE_STORAGE_BUCKET=your_firebase_storage_bucket
+REACT_APP_FIREBASE_MESSAGING_SENDER_ID=your_firebase_messaging_sender_id
+REACT_APP_FIREBASE_APP_ID=your_firebase_app_id
+```
+
 ### 4. 启动开发服务器
 ```bash
 npm run dev
 ```
 打开浏览器访问 `http://localhost:5173`。
+
+### 5. 访问CMS管理后台
+CMS管理后台可通过 `/cms` 路径访问。首次使用需要创建管理员账户并登录。
 
 ## 📦 部署指南 (GitHub Pages)
 
@@ -57,10 +74,17 @@ npm run dev
     *   点击 **New repository secret**。
     *   Name: `VITE_API_KEY`
     *   Value: 你的 Google Gemini API Key。
+    *   对于CMS功能，还需要配置Firebase密钥：
+        - `FIREBASE_API_KEY`
+        - `FIREBASE_AUTH_DOMAIN`
+        - `FIREBASE_PROJECT_ID`
+        - `FIREBASE_STORAGE_BUCKET`
+        - `FIREBASE_MESSAGING_SENDER_ID`
+        - `FIREBASE_APP_ID`
 3.  **禁用自动部署**:
     *   进入仓库 **Settings** -> **Pages**。
     *   在 **Build and deployment** 部分，将 **Source** 设置为 **GitHub Actions**。
-    *   禁用任何旧的部署源（如 pages-build-deployment）以避免冲突。
+    *   要禁用任何旧的部署源（如 pages-build-deployment）以避免冲突。
 4.  **配置 Pages**:
     *   在 **Settings** -> **Pages** 中，将 **Source** 设置为 **GitHub Actions**。
 5.  **触发部署**:

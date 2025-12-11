@@ -1,0 +1,110 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // 默认情况下拒绝所有读写操作
+    match /{document=**} {
+      allow read, write: if false;
+    }
+    
+    // 用户认证检查函数
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    // 管理员角色检查函数
+    function isAdmin() {
+      return isAuthenticated() && request.auth.token.admin == true;
+    }
+    
+    // 编辑者角色检查函数
+    function isEditor() {
+      return isAuthenticated() && request.auth.token.editor == true;
+    }
+    
+    // 作者角色检查函数
+    function isAuthor() {
+      return isAuthenticated() && request.auth.token.author == true;
+    }
+    
+    // 文章集合规则
+    match /articles/{articleId} {
+      // 所有认证用户可以读取已发布的文章
+      allow read: if resource.data.status == 'published' || isAuthenticated();
+      
+      // 管理员和编辑者可以创建文章
+      allow create: if isAdmin() || isEditor();
+      
+      // 管理员、编辑者和作者可以更新自己的文章
+      allow update: if isAdmin() || 
+                    isEditor() || 
+                    (isAuthor() && request.auth.uid == resource.data.author.id);
+      
+      // 只有管理员可以删除文章
+      allow delete: if isAdmin();
+    }
+    
+    // 页面集合规则
+    match /pages/{pageId} {
+      // 所有用户可以读取已发布的页面
+      allow read: if resource.data.status == 'published' || isAuthenticated();
+      
+      // 管理员和编辑者可以创建页面
+      allow create: if isAdmin() || isEditor();
+      
+      // 管理员和编辑者可以更新页面
+      allow update: if isAdmin() || isEditor();
+      
+      // 只有管理员可以删除页面
+      allow delete: if isAdmin();
+    }
+    
+    // 媒体集合规则
+    match /media/{mediaId} {
+      // 认证用户可以读取媒体
+      allow read: if isAuthenticated();
+      
+      // 认证用户可以上传媒体
+      allow create: if isAuthenticated();
+      
+      // 管理员可以更新媒体信息
+      allow update: if isAdmin();
+      
+      // 只有管理员可以删除媒体
+      allow delete: if isAdmin();
+    }
+    
+    // 用户集合规则（仅管理员可访问）
+    match /users/{userId} {
+      // 只有管理员可以读取用户信息
+      allow read: if isAdmin();
+      
+      // 只有管理员可以创建用户记录
+      allow create: if isAdmin();
+      
+      // 只有管理员可以更新用户信息
+      allow update: if isAdmin();
+      
+      // 只有管理员可以删除用户记录
+      allow delete: if isAdmin();
+    }
+  }
+}
+
+// Storage安全规则
+service firebase.storage {
+  match /b/{bucket}/o {
+    // 默认情况下拒绝所有操作
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+    
+    // 媒体文件夹规则
+    match /media/{mediaId} {
+      // 认证用户可以读取媒体文件
+      allow read: if request.auth != null;
+      
+      // 认证用户可以上传媒体文件
+      allow write: if request.auth != null;
+    }
+  }
+}

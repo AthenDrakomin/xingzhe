@@ -55,25 +55,49 @@ export const initializeChat = () => {
 };
 
 export const sendMessageToGemini = async (message: string): Promise<string> => {
+  // Input sanitization
+  const sanitizedMessage = message.trim().substring(0, 1000);
+  
+  if (!sanitizedMessage) {
+    throw new Error("消息不能为空");
+  }
+  
   if (!chatInstance) {
     const initialized = initializeChat();
     if (!initialized) {
-      throw new Error("Failed to initialize AI. Check API Key.");
+      throw new Error("AI初始化失败，请检查API密钥配置。");
     }
   }
 
   if (!chatInstance) {
-    throw new Error("Chat instance unavailable");
+    throw new Error("聊天实例不可用");
   }
 
   try {
     const result: GenerateContentResponse = await chatInstance.sendMessage({
-      message: message
+      message: sanitizedMessage
     });
     
-    return result.text || "";
-  } catch (error) {
+    const responseText = result.text || "";
+    
+    // Response sanitization
+    if (!responseText.trim()) {
+      throw new Error("AI返回了空响应");
+    }
+    
+    return responseText;
+  } catch (error: any) {
     console.error("Error sending message to Gemini:", error);
-    throw error;
+    
+    // More specific error handling
+    if (error.message && error.message.includes("API_KEY")) {
+      throw new Error("API密钥配置错误，请联系网站管理员。");
+    }
+    
+    if (error.message && error.message.includes("network")) {
+      throw new Error("网络连接错误，请检查网络连接后重试。");
+    }
+    
+    throw new Error("与AI通信时发生未知错误，请稍后再试。");
   }
 };
