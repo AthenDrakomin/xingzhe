@@ -11,6 +11,8 @@
 *   **流畅交互**: 采用 React + Vite 构建，配合 Tailwind CSS 实现丝滑的过渡动画与响应式设计。
 *   **完全响应式**: 适配桌面端与移动端，提供原生般的浏览体验。
 *   **无服务器CMS**: 内置基于Firebase的无服务器内容管理系统，支持文章、页面和媒体管理。
+*   **基于角色的权限控制**: 支持管理员、编辑者和作者三种角色，提供细粒度的权限管理。
+*   **现代化架构**: 采用React 18 + TypeScript技术栈，具有良好的类型安全和开发体验。
 
 ## 🛠 技术栈 (Tech Stack)
 
@@ -19,6 +21,8 @@
 *   **样式方案**: Tailwind CSS (自定义动画, 排版)
 *   **AI 模型**: Google Gemini API (`@google/genai`)
 *   **CMS后端**: Firebase (Firestore, Authentication, Storage)
+*   **状态管理**: React Hooks, SWR (数据获取和缓存)
+*   **路由管理**: React Router v7
 *   **部署环境**: GitHub Pages (GitHub Actions CI/CD)
 
 ## 🚀 本地开发 (Local Development)
@@ -64,6 +68,33 @@ npm run dev
 ### 5. 访问CMS管理后台
 CMS管理后台可通过 `/cms` 路径访问。首次使用需要创建管理员账户并登录。
 
+### 6. CMS开发
+
+#### 目录结构
+```bash
+src/cms/
+├── components/          # CMS组件
+│   ├── admin/          # 管理后台组件
+│   └── frontend/       # 前端展示组件
+├── hooks/              # 自定义Hooks
+├── services/           # 服务层
+├── types/              # TypeScript类型定义
+├── routes.tsx          # 路由配置
+└── README.md           # CMS详细说明文档
+```
+
+#### 功能模块
+- **文章管理**: 创建、编辑、删除博客文章，支持分类和标签
+- **页面管理**: 管理静态页面内容，支持自定义路径
+- **媒体库**: 上传和管理图片等媒体文件
+- **用户管理**: 基于角色的用户权限管理（管理员、编辑者、作者）
+
+#### 开发指南
+1. 在 `src/cms/types/` 中创建新的类型定义
+2. 在 `src/cms/services/api.ts` 中添加相应的API方法
+3. 创建对应的自定义Hook
+4. 开发管理界面和前端展示组件
+
 ## 📦 部署指南 (GitHub Pages)
 
 本项目使用 GitHub Actions 工作流进行构建和部署到 GitHub Pages。
@@ -89,6 +120,76 @@ CMS管理后台可通过 `/cms` 路径访问。首次使用需要创建管理员
     *   在 **Settings** -> **Pages** 中，将 **Source** 设置为 **GitHub Actions**。
 5.  **触发部署**:
     *   推送代码到 `main` 分支，或者在 Actions 标签页手动触发 "Clean Deploy to GitHub Pages" 工作流。
+
+### CMS部署注意事项
+
+1. **Firebase项目设置**:
+   - 访问[Firebase控制台](https://console.firebase.google.com/)
+   - 创建新项目或使用现有项目
+   - 启用以下服务：
+     - Firestore Database
+     - Authentication (启用邮箱/密码登录)
+     - Cloud Storage
+
+2. **数据库规则设置**:
+   - 将 `firebase.rules` 文件中的规则部署到Firebase Firestore
+   - 将 `cms/storage.rules` 文件中的规则部署到Firebase Storage
+
+3. **自动部署触发**:
+   当以下路径的文件发生更改时，将自动触发部署：
+   - `src/cms/**`
+   - `src/components/**`
+   - `index.html`
+   - `package.json`
+   - `vite.config.ts`
+
+## 🔐 权限系统
+
+本CMS系统实现了基于角色的访问控制(RBAC)，支持三种用户角色：
+
+1. **管理员 (admin)**:
+   - 拥有系统的最高权限
+   - 可以管理所有内容（文章、页面、媒体）
+   - 可以管理用户账户和权限
+   - 可以删除任何内容
+
+2. **编辑者 (editor)**:
+   - 可以创建、编辑和删除文章
+   - 可以创建、编辑和删除页面
+   - 可以上传和管理媒体文件
+   - 不能管理用户账户
+
+3. **作者 (author)**:
+   - 可以创建文章
+   - 只能编辑自己创建的文章
+   - 可以上传和管理媒体文件
+   - 不能删除文章或页面
+   - 不能管理用户账户
+
+详细的权限矩阵和实现细节请参阅 [CMS权限系统说明](src/cms/PERMISSIONS.md)。
+
+## 🧪 测试
+
+本项目包含完整的测试套件，确保系统的稳定性和可靠性：
+
+### 测试类型
+
+1. **路由测试**: 验证所有路由配置正确性
+2. **API服务测试**: 验证API服务结构完整性
+3. **权限验证测试**: 验证权限控制逻辑正确性
+4. **单元测试**: 使用Jest框架进行核心逻辑测试
+
+### 运行测试
+
+```bash
+# 运行所有测试
+npm run test
+
+# 运行单元测试
+npm run test:unit
+```
+
+详细的测试计划和执行步骤请参阅 [CMS测试计划](src/cms/TESTING.md) 和 [测试总结报告](src/cms/TEST_SUMMARY.md)。
 
 ## 🤝 开源贡献
 
