@@ -58,7 +58,7 @@ const BlogList = () => {
 
 const ProjectList = () => {
   const projects: Project[] = [
-    { id: '1', title: 'Solace (本站)', description: '基于 Gemini API 的哲学对话机器人，探寻人机交互的情感边界。', tech: ['React', 'Gemini API', 'Tailwind'] },
+    { id: '1', title: 'Solace (本站)', description: '一个个人作品集与博客，包含一个独特的动态评论区（假和尚），用于哲学探讨与心灵慰藉。', tech: ['React', 'Firebase', 'Tailwind'] },
     { id: '2', title: 'Void UI', description: '一套极简主义的 React 组件库，专注于负空间的设计美学。', tech: ['TypeScript', 'CSS Modules'] },
     { id: '3', title: 'Ethereal Reader', description: 'RSS 阅读器，将新闻资讯转化为俳句，减少信息焦虑。', tech: ['Python', 'NLP'] },
   ];
