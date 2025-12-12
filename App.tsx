@@ -143,7 +143,7 @@ const App: React.FC = () => {
                 
                 {/* Navigation Bar (Only show if not on home) */}
                 {currentPage !== 'home' && (
-                  <nav className="flex-none h-16 border-b border-white/5 bg-[#020617]/50 backdrop-blur-md z-30 flex items-center justify-between px-6 pl-16 md:pl-6">
+                  <nav className="flex-none h-16 border-b border-white/5 bg-[#020617]/50 backdrop-blur-md z-30 flex items-center justify-between px-4 sm:px-6 pl-16 md:pl-6">
                     <button 
                       onClick={() => handlePageChange('home')}
                       className="serif text-lg tracking-widest text-slate-400 hover:text-white transition-colors flex items-center gap-2 group md:flex"
@@ -162,7 +162,7 @@ const App: React.FC = () => {
                 )}
                 
                 {/* Main Content Area */}
-                <main className={`flex-1 overflow-hidden relative z-10 transition-all duration-500 ease-out ${transitioning ? 'opacity-0 scale-95 blur-sm' : 'opacity-100 scale-100 blur-0'} pl-14 md:pl-0`}>
+                <main className={`flex-1 overflow-hidden relative z-10 transition-all duration-500 ease-out ${transitioning ? 'opacity-0 scale-95 blur-sm' : 'opacity-100 scale-100 blur-0'} pl-0 sm:pl-14 md:pl-0`}>
                   {renderPage()}
                 </main>
               </>

@@ -8,9 +8,9 @@ interface HomeProps {
 
 const Home: React.FC<HomeProps> = ({ setPage }) => {
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen p-6 max-w-2xl mx-auto animate-fade-in-up bg-[#020617]" style={{ backgroundColor: '#020617' }}>
+    <div className="flex flex-col items-center justify-center min-h-screen p-4 sm:p-6 max-w-2xl mx-auto animate-fade-in-up bg-[#020617]" style={{ backgroundColor: '#020617' }}>
       {/* Avatar with Breathing Effect */}
-      <div className="relative w-32 h-32 mb-10 group cursor-pointer">
+      <div className="relative w-24 h-24 sm:w-32 sm:h-32 mb-8 sm:mb-10 group cursor-pointer">
         {/* Animated outer glow - adjusted for new dark theme */}
         <div 
             className="absolute inset-0 bg-emerald-900/20 rounded-full blur-2xl animate-pulse" 
@@ -26,20 +26,20 @@ const Home: React.FC<HomeProps> = ({ setPage }) => {
           className="w-full h-full rounded-full border border-white/10 grayscale contrast-125 hover:grayscale-0 transition-all duration-700 relative z-10 bg-black shadow-2xl"
           loading="lazy"
         />
-        <div className="absolute bottom-1 right-1 w-3 h-3 bg-emerald-800/80 border border-black rounded-full z-20 animate-pulse shadow-[0_0_10px_rgba(6,95,70,0.5)]"></div>
+        <div className="absolute bottom-1 right-1 w-2 h-2 sm:w-3 sm:h-3 bg-emerald-800/80 border border-black rounded-full z-20 animate-pulse shadow-[0_0_10px_rgba(6,95,70,0.5)]"></div>
       </div>
 
       {/* Intro */}
-      <h1 className="serif text-4xl text-slate-100 mb-8 tracking-widest font-light drop-shadow-lg">行者</h1>
+      <h1 className="serif text-3xl sm:text-4xl text-slate-100 mb-6 sm:mb-8 tracking-widest font-light drop-shadow-lg">行者</h1>
       
       {/* Updated Bio with deeper typography */}
-      <div className="text-slate-400 font-light mb-16 text-sm serif leading-loose text-center max-w-lg italic opacity-80">
+      <div className="text-slate-400 font-light mb-10 sm:mb-16 text-sm serif leading-loose text-center max-w-md sm:max-w-lg italic opacity-80">
         <p className="mb-2">“我也不是虔诚的基督教徒，我只是找不到妈妈，麻痹自己。</p>
         <p>而你也只是个假和尚，既心虚，又空虚。”</p>
       </div>
 
       {/* Navigation Grid */}
-      <div className="grid grid-cols-2 gap-3 w-full md:gap-4 md:w-[500px]">
+      <div className="grid grid-cols-2 gap-3 w-full sm:gap-4 sm:w-[400px] md:w-[500px]">
         <NavCard 
           title="博客" 
           subtitle="文以载道" 
@@ -67,7 +67,7 @@ const Home: React.FC<HomeProps> = ({ setPage }) => {
         />
       </div>
 
-      <footer className="mt-12 text-[10px] tracking-widest text-slate-600 serif uppercase opacity-60">
+      <footer className="mt-10 sm:mt-12 text-[9px] sm:text-[10px] tracking-widest text-slate-600 serif uppercase opacity-60">
         © {new Date().getFullYear()} • 托管于 GitHub
       </footer>
     </div>
@@ -79,16 +79,16 @@ const NavCard = ({ title, subtitle, onClick, highlight = false, delay }: { title
     onClick={onClick}
     style={{ animationDelay: delay }}
     className={`
-      relative group overflow-hidden p-5 md:p-6 text-left transition-all duration-500 animate-fade-in-up w-full
+      relative group overflow-hidden p-4 sm:p-5 md:p-6 text-left transition-all duration-500 animate-fade-in-up w-full
     `}
     aria-label={`${title} 页面`}
   >
     <Card variant={highlight ? 'highlight' : 'default'} className="h-full">
       <div className="relative z-10 flex flex-col items-start gap-1">
-        <span className={`block serif text-lg md:text-xl tracking-wide transition-colors duration-300 ${highlight ? 'text-slate-100' : 'text-slate-400 group-hover:text-slate-200'}`}>
+        <span className={`block serif text-base sm:text-lg md:text-xl tracking-wide transition-colors duration-300 ${highlight ? 'text-slate-100' : 'text-slate-400 group-hover:text-slate-200'}`}>
           {title}
         </span>
-        <span className="text-[8px] md:text-[9px] tracking-[0.3em] text-slate-600 group-hover:text-emerald-500/70 transition-colors duration-300 uppercase font-medium">
+        <span className="text-[7px] sm:text-[8px] md:text-[9px] tracking-[0.3em] text-slate-600 group-hover:text-emerald-500/70 transition-colors duration-300 uppercase font-medium">
           {subtitle}
         </span>
       </div>

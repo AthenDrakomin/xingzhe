@@ -126,7 +126,7 @@ const Dynamics: React.FC = () => {
       <div className="flex-1 overflow-y-auto p-4 custom-scrollbar">
         <div className="max-w-2xl mx-auto space-y-8 pb-32 pt-8">
           {/* Header for the section */}
-          <div className="text-center py-8 mb-4 border-b border-white/5">
+          <div className="text-center py-6 sm:py-8 mb-4 border-b border-white/5">
              <h2 className="serif text-xl text-slate-300 tracking-wider">同病相怜 • 动态</h2>
              <p className="text-[10px] text-slate-600 mt-2 tracking-[0.3em] uppercase">Echoes in the Void</p>
           </div>
@@ -153,23 +153,24 @@ const Dynamics: React.FC = () => {
       </div>
 
       {/* Input Area - Integrated with the dark theme */}
-      <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black via-black/90 to-transparent pb-6 pt-8 px-4 z-20">
-        <div className="max-w-2xl mx-auto flex flex-col sm:flex-row gap-3">
+      <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black via-black/90 to-transparent pb-4 sm:pb-6 pt-6 sm:pt-8 px-4 z-20">
+        <div className="max-w-2xl mx-auto flex flex-col sm:flex-row gap-2 sm:gap-3">
           <input
             type="text"
             value={inputText}
             onChange={(e) => setInputText(e.target.value)}
             onKeyDown={handleInputKeyDown}
             placeholder="写下你的感悟..."
-            className="flex-1 bg-white/[0.03] border border-white/10 rounded-sm px-4 py-3 sm:px-6 sm:py-4 text-slate-300 focus:outline-none focus:border-white/20 focus:bg-white/[0.05] transition-all placeholder-slate-700 text-sm font-light tracking-wide shadow-inner min-h-[48px]"
+            className="flex-1 bg-white/[0.03] border border-white/10 rounded-sm px-3 py-2 sm:px-4 sm:py-3 text-slate-300 focus:outline-none focus:border-white/20 focus:bg-white/[0.05] transition-all placeholder-slate-700 text-sm font-light tracking-wide shadow-inner min-h-[40px] sm:min-h-[48px]"
             aria-label="输入消息"
           />
           <Button
             variant="ghost"
-            size="lg"
+            size="md"
             onClick={handleSendMessage}
             disabled={!inputText.trim() || chatState.isLoading}
             aria-label="发送消息"
+            className="px-4 py-2 sm:px-6 sm:py-3"
           >
             Send
           </Button>

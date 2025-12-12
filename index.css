@@ -6,13 +6,16 @@
 ::-webkit-scrollbar {
   width: 6px;
 }
+
 ::-webkit-scrollbar-track {
   background: transparent;
 }
+
 ::-webkit-scrollbar-thumb {
   background: #334155;
   border-radius: 3px;
 }
+
 ::-webkit-scrollbar-thumb:hover {
   background: #475569;
 }
@@ -34,9 +37,67 @@ body {
 .text-slate-100 {
   color: #f8fafc;
 }
+
 .text-slate-200 {
   color: #f1f5f9;
 }
+
 .text-slate-300 {
   color: #cbd5e1;
+}
+
+/* Responsive adjustments for better mobile experience */
+@media (max-width: 640px) {
+  /* Reduce padding on small screens */
+  .p-4 {
+    padding: 1rem;
+  }
+  
+  .p-6 {
+    padding: 1.5rem;
+  }
+  
+  /* Adjust font sizes for better readability on small screens */
+  .text-sm {
+    font-size: 0.8125rem; /* 13px */
+  }
+  
+  .text-base {
+    font-size: 0.875rem; /* 14px */
+  }
+  
+  /* Ensure inputs don't overflow on small screens */
+  input[type="text"] {
+    min-width: 0;
+  }
+}
+
+/* Ensure proper viewport height handling on mobile devices */
+@supports (-webkit-touch-callout: none) {
+  .h-screen {
+    height: -webkit-fill-available;
+  }
+}
+
+/* Prevent text size adjustment on iOS Safari */
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+/* Improve touch targets for mobile */
+button, a {
+  min-height: 44px;
+  min-width: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Optimize animations for better performance */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
