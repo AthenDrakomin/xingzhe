@@ -2,12 +2,11 @@
 
 > "我也不是虔诚的基督教徒，我只是找不到妈妈，麻痹自己。而你也只是个假和尚，既心虚，又空虚。"
 
-**我的静室 (Digital Sanctuary)** 是一个融合了现代 Web 技术与哲学思考的个人作品集网站。它不仅仅是一个展示项目的平台，更包含了一个独特的情感交互核心——**“同病相怜” (The Fake Monk)**，一个基于 Google Gemini API 的 AI 伴侣，用于探寻人机交互的情感边界。
+**我的静室 (Digital Sanctuary)** 是一个融合了现代 Web 技术与哲学思考的个人作品集网站。它不仅仅是一个展示项目的平台，更包含了一个独特的互动区域——**"同病相怜"**，一个供访客留言和交流的社区空间。
 
 ## 🌌 特性 (Features)
 
-*   **沉浸式美学**: 深度定制的黑色调 UI，结合动态光影、噪点纹理与极简线条，营造静谧的“静室”氛围。
-*   **AI 哲学伴侣**: 集成 Gemini 2.5 Flash 模型，定制化 System Prompt（假和尚人设），提供富含哲理与共情的对话体验。
+*   **沉浸式美学**: 深度定制的黑色调 UI，结合动态光影、噪点纹理与极简线条，营造静谧的"静室"氛围。
 *   **流畅交互**: 采用 React + Vite 构建，配合 Tailwind CSS 实现丝滑的过渡动画与响应式设计。
 *   **完全响应式**: 适配桌面端与移动端，提供原生般的浏览体验。
 *   **无服务器CMS**: 内置基于Firebase的无服务器内容管理系统，支持文章、页面和媒体管理。
@@ -19,7 +18,6 @@
 *   **核心框架**: React 18, TypeScript
 *   **构建工具**: Vite
 *   **样式方案**: Tailwind CSS (自定义动画, 排版)
-*   **AI 模型**: Google Gemini API (`@google/genai`)
 *   **CMS后端**: Firebase (Firestore, Authentication, Storage)
 *   **状态管理**: React Hooks, SWR (数据获取和缓存)
 *   **路由管理**: React Router v7
@@ -59,11 +57,10 @@ REACT_APP_FIREBASE_STORAGE_BUCKET=your_firebase_storage_bucket
 REACT_APP_FIREBASE_MESSAGING_SENDER_ID=your_firebase_messaging_sender_id
 REACT_APP_FIREBASE_APP_ID=your_firebase_app_id
 
-# Gemini API密钥
-VITE_API_KEY=your_gemini_api_key
-
-# AI提供商选择 (gemini 或 ollama)
-VITE_AI_PROVIDER=gemini
+# 应用配置
+REACT_APP_SITE_NAME=Your Site Name
+REACT_APP_SITE_DESCRIPTION=Your site description
+REACT_APP_SITE_URL=https://your-site-url.com
 ```
 
 ### 4. 启动开发服务器
@@ -72,38 +69,7 @@ npm run dev
 ```
 打开浏览器访问 `http://localhost:5173`。
 
-### 5. AI提供商切换
-
-本项目支持三种AI提供商：
-
-1. **Google Gemini** (默认)
-   - 需要Google API密钥
-   - 在线服务，需要网络连接
-   - 在 `.env` 文件中设置 `VITE_AI_PROVIDER=gemini`
-
-2. **Ollama** (本地免费方案)
-   - 完全免费，本地运行
-   - 不需要网络连接
-   - 在 `.env` 文件中设置 `VITE_AI_PROVIDER=ollama`
-
-3. **OpenAI** (兼容方案)
-   - 需要OpenAI API密钥
-   - 在线服务，需要网络连接
-   - 在 `.env` 文件中设置 `VITE_AI_PROVIDER=openai`
-
-#### 使用Ollama的步骤：
-1. 访问 https://ollama.com/ 下载并安装Ollama
-2. 安装完成后，在终端运行：
-   ```bash
-   ollama run llama2-chinese
-   ```
-3. 在 `.env` 文件中设置 `VITE_AI_PROVIDER=ollama`
-
-#### 使用OpenAI的步骤：
-1. 访问 https://platform.openai.com/ 注册并获取API密钥
-2. 在 `.env` 文件中设置 `VITE_AI_PROVIDER=openai`
-
-### 6. 常见问题排查
+### 5. 常见问题排查
 
 #### Firebase配置错误
 如果您遇到 `Firebase: Error (auth/invalid-api-key)` 错误，请检查：
@@ -155,9 +121,7 @@ src/cms/
 2.  **配置密钥**:
     *   进入仓库 **Settings** -> **Secrets and variables** -> **Actions**。
     *   点击 **New repository secret**。
-    *   Name: `VITE_API_KEY`
-    *   Value: 你的 Google Gemini API Key。
-    *   对于CMS功能，还需要配置Firebase密钥：
+    *   对于CMS功能，需要配置Firebase密钥：
         - `FIREBASE_API_KEY`
         - `FIREBASE_AUTH_DOMAIN`
         - `FIREBASE_PROJECT_ID`
@@ -185,8 +149,6 @@ src/cms/
 3.  **配置环境变量**:
     *   在项目设置中，进入 "Environment Variables" 部分。
     *   添加以下环境变量：
-        - `VITE_API_KEY`: 你的 Google Gemini API Key
-        - `VITE_AI_PROVIDER`: AI提供商 (默认为 `gemini`)
         - Firebase相关密钥（如需要CMS功能）:
           - `FIREBASE_API_KEY`
           - `FIREBASE_AUTH_DOMAIN`

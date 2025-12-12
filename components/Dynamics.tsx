@@ -1,6 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { ChatState, Message, Role } from '../types';
-import { sendMessageToAI, initializeAI, setAIProvider, AIProvider } from '../services/aiProvider';
 import ChatMessage from './ChatMessage';
 import Button from './Button';
 
@@ -17,7 +16,6 @@ const Dynamics: React.FC = () => {
   
   // Initialize on mount
   useEffect(() => {
-    initializeAI();
     const timer = setTimeout(() => {
         setChatState(prev => ({
             ...prev,
@@ -36,7 +34,7 @@ const Dynamics: React.FC = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [chatState.messages]);
 
-  const handleSendMessage = async () => {
+  const handleSendMessage = () => {
     if (!inputText.trim() || chatState.isLoading) return;
 
     const userMsgText = inputText.trim();
@@ -74,18 +72,25 @@ const Dynamics: React.FC = () => {
       error: null,
     }));
 
-    try {
-      const responseText = await sendMessageToAI(userMsgText);
+    // 模拟回复延迟
+    setTimeout(() => {
+      const responses = [
+        "感谢您的留言，我们会认真阅读每一条消息。",
+        "您的感悟很有深度，引人深思。",
+        "在这个喧嚣的世界中，能听到您的声音很难得。",
+        "您的分享让我们看到了不同的视角。",
+        "每一句话都承载着独特的思考，谢谢您的参与。",
+        "您的留言如石投湖面，激起层层涟漪。",
+        "在这个虚拟的空间里，您的真实感受格外珍贵。",
+        "感谢您愿意在这里分享内心的声音。"
+      ];
       
-      // Validate AI response
-      if (!responseText || responseText.trim().length === 0) {
-        throw new Error("AI返回了空响应");
-      }
+      const randomResponse = responses[Math.floor(Math.random() * responses.length)];
       
       const aiMessage: Message = {
         id: (Date.now() + 1).toString(),
         role: Role.MODEL,
-        text: responseText,
+        text: randomResponse,
         timestamp: new Date(),
       };
 
@@ -94,15 +99,7 @@ const Dynamics: React.FC = () => {
         messages: [...prev.messages, aiMessage],
         isLoading: false,
       }));
-
-    } catch (err) {
-      console.error("Error sending message to AI:", err);
-      setChatState((prev) => ({
-        ...prev,
-        isLoading: false,
-        error: "网络亦如红尘般断续 (网络错误)，请稍后再试。",
-      }));
-    }
+    }, 1000);
   };
 
   const handleInputKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
