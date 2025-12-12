@@ -27,5 +27,11 @@ export default defineConfig({
   // 确保环境变量被正确传递
   define: {
     'process.env': process.env
+  },
+  // 修复 GitHub Pages 部署问题
+  resolve: {
+    alias: {
+      '@': '/src'
+    }
   }
 })

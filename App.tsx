@@ -50,7 +50,7 @@ const App: React.FC = () => {
 
   return (
     <ErrorBoundary>
-      <Router>
+      <Router basename="/xingzhe">
         <div className="flex flex-col h-screen bg-[#020617] text-slate-300 overflow-hidden font-sans relative selection:bg-emerald-900 selection:text-white antialiased">
           {/* 1. Main Background Gradient: Simulating a dim light from top-center */}
           <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_top,_#1e293b_0%,_#020617_50%,_#000000_100%)] z-0 pointer-events-none" />
