@@ -2,7 +2,7 @@
 
 > "我也不是虔诚的基督教徒，我只是找不到妈妈，麻痹自己。而你也只是个假和尚，既心虚，又空虚。"
 
-**我的静室 (Digital Sanctuary)** 是一个融合了现代 Web 抩术与哲学思考的个人作品集网站。它不仅仅是一个展示项目的平台，更包含了一个独特的互动区域——**"同病相怜"**，一个供访客留言和交流的社区空间。
+**我的静室 (Digital Sanctuary)** 是一个融合了现代 Web 技术与哲学思考的个人作品集网站。它不仅仅是一个展示项目的平台，更包含了一个独特的互动区域——**"同病相怜"**，一个供访客留言和交流的社区空间。
 
 ## 🌌 特性 (Features)
 
@@ -18,7 +18,7 @@
 *   **核心框架**: React 18, TypeScript
 *   **构建工具**: Vite
 *   **样式方案**: Tailwind CSS (自定义动画, 排版)
-*   **CMS后端**: Firebase (Firestore, Authentication, Storage)
+*   **CMS后端**: Firebase (Firestore, Authentication)
 *   **状态管理**: React Hooks, SWR (数据获取和缓存)
 *   **路由管理**: React Router v7
 *   **部署环境**: GitHub Pages (GitHub Actions CI/CD) + Firebase 无头服务器
@@ -53,7 +53,6 @@ npm install
 REACT_APP_FIREBASE_API_KEY=your_firebase_api_key
 REACT_APP_FIREBASE_AUTH_DOMAIN=your_firebase_auth_domain
 REACT_APP_FIREBASE_PROJECT_ID=your_firebase_project_id
-REACT_APP_FIREBASE_STORAGE_BUCKET=your_firebase_storage_bucket
 REACT_APP_FIREBASE_MESSAGING_SENDER_ID=your_firebase_messaging_sender_id
 REACT_APP_FIREBASE_APP_ID=your_firebase_app_id
 
@@ -127,7 +126,6 @@ src/cms/
         - `FIREBASE_API_KEY`
         - `FIREBASE_AUTH_DOMAIN`
         - `FIREBASE_PROJECT_ID`
-        - `FIREBASE_STORAGE_BUCKET`
         - `FIREBASE_MESSAGING_SENDER_ID`
         - `FIREBASE_APP_ID`
 3.  **禁用自动部署**:
@@ -147,11 +145,9 @@ src/cms/
    - 启用以下服务：
      - Firestore Database
      - Authentication (启用邮箱/密码登录)
-     - Cloud Storage
 
 2. **数据库规则设置**:
    - 将 `firebase.rules` 文件中的规则部署到Firebase Firestore
-   - 将 `cms/storage.rules` 文件中的规则部署到Firebase Storage
 
 3. **自动部署触发**:
    当以下路径的文件发生更改时，将自动触发部署：

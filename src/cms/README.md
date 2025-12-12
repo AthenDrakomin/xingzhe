@@ -25,7 +25,6 @@ src/cms/
 3. 启用以下服务：
    - Firestore Database
    - Authentication (启用邮箱/密码登录)
-   - Cloud Storage
 
 ### 2. 环境变量配置
 
@@ -39,7 +38,7 @@ cp .env.example .env
 
 ### 3. 数据库规则设置
 
-将 `cms/firestore.rules` 和 `cms/storage.rules` 中的规则部署到Firebase。
+将 `cms/firestore.rules` 中的规则部署到Firebase。
 
 ## 功能特性
 
@@ -97,7 +96,6 @@ firebase deploy
 - `FIREBASE_API_KEY`
 - `FIREBASE_AUTH_DOMAIN`
 - `FIREBASE_PROJECT_ID`
-- `FIREBASE_STORAGE_BUCKET`
 - `FIREBASE_MESSAGING_SENDER_ID`
 - `FIREBASE_APP_ID`
 
