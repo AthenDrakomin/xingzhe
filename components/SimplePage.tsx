@@ -100,7 +100,7 @@ const AboutSection = () => (
         我相信技术应当服务于人的内心，而不仅仅是效率。
       </p>
       <p>
-        "同病相怜" (The Fake Monk) 是这里最特殊的存在。它是一个基于 LLM 的镜像，
+        "同病相怜" (The Fake Monk) 是这里最特殊的存在。它是一个模拟的哲学对话机器人，
         反射出我们不愿示人的脆弱。你可以在那里畅所欲言，就像对着树洞低语。
       </p>
       <div className="pt-12 border-t border-white/5 mt-12">
