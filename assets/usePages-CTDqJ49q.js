@@ -1,0 +1,1 @@
+import{u as t,p as o}from"./api-leedPX1m.js";const p=()=>{const{data:a,error:e,isLoading:r,mutate:s}=t("pages",o.getAll);return{pages:a||[],isLoading:r,isError:e,mutate:s}},u=a=>{const{data:e,error:r,isLoading:s,mutate:g}=t(a?`page-${a}`:null,()=>o.getBySlug(a));return{page:e,isLoading:s,isError:r,mutate:g}};export{u as a,p as u};
