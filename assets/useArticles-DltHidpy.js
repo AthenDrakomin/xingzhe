@@ -1,0 +1,1 @@
+import{u as s,a as i}from"./api-C0QKG_1G.js";const l=()=>{const{data:r,error:t,isLoading:a,mutate:e}=s("articles",i.getAll);return{articles:r||[],isLoading:a,isError:t,mutate:e}},n=r=>{const{data:t,error:a,isLoading:e,mutate:o}=s(r?`article-${r}`:null,()=>i.getBySlug(r));return{article:t,isLoading:e,isError:a,mutate:o}};export{n as a,l as u};
