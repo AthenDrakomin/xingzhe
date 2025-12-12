@@ -2,7 +2,7 @@
 
 > "我也不是虔诚的基督教徒，我只是找不到妈妈，麻痹自己。而你也只是个假和尚，既心虚，又空虚。"
 
-**我的静室 (Digital Sanctuary)** 是一个融合了现代 Web 技术与哲学思考的个人作品集网站。它不仅仅是一个展示项目的平台，更包含了一个独特的互动区域——**"同病相怜"**，一个供访客留言和交流的社区空间。
+**我的静室 (Digital Sanctuary)** 是一个融合了现代 Web 抩术与哲学思考的个人作品集网站。它不仅仅是一个展示项目的平台，更包含了一个独特的互动区域——**"同病相怜"**，一个供访客留言和交流的社区空间。
 
 ## 🌌 特性 (Features)
 
@@ -21,7 +21,7 @@
 *   **CMS后端**: Firebase (Firestore, Authentication, Storage)
 *   **状态管理**: React Hooks, SWR (数据获取和缓存)
 *   **路由管理**: React Router v7
-*   **部署环境**: GitHub Pages (GitHub Actions CI/CD)
+*   **部署环境**: GitHub Pages (GitHub Actions CI/CD) + Firebase 无头服务器
 
 ## 🚀 本地开发 (Local Development)
 
@@ -113,9 +113,11 @@ src/cms/
 3. 创建对应的自定义Hook
 4. 开发管理界面和前端展示组件
 
-## 📦 部署指南 (GitHub Pages)
+## 📦 部署指南 (GitHub Pages + Firebase)
 
-本项目使用 GitHub Actions 工作流进行构建和部署到 GitHub Pages。
+本项目使用 GitHub Actions 工作流进行构建和部署到 GitHub Pages，并使用 Firebase 作为无头服务器。
+
+### 1. GitHub Pages 部署
 
 1.  **提交代码**到 GitHub 仓库。
 2.  **配置密钥**:
@@ -137,30 +139,7 @@ src/cms/
 5.  **触发部署**:
     *   推送代码到 `main` 分支，或者在 Actions 标签页手动触发 "Clean Deploy to GitHub Pages" 工作流。
 
-## 🚀 Vercel 部署指南
-
-本项目也支持部署到 Vercel 平台，享受其全球 CDN 和自动优化功能。
-
-1.  **注册 Vercel 账户**:
-    *   访问 [Vercel官网](https://vercel.com/) 并使用 GitHub 账户登录。
-2.  **导入项目**:
-    *   点击 "New Project"。
-    *   从 GitHub 仓库列表中选择此项目。
-3.  **配置环境变量**:
-    *   在项目设置中，进入 "Environment Variables" 部分。
-    *   添加以下环境变量：
-        - Firebase相关密钥（如需要CMS功能）:
-          - `FIREBASE_API_KEY`
-          - `FIREBASE_AUTH_DOMAIN`
-          - `FIREBASE_PROJECT_ID`
-          - `FIREBASE_STORAGE_BUCKET`
-          - `FIREBASE_MESSAGING_SENDER_ID`
-          - `FIREBASE_APP_ID`
-4.  **部署**:
-    *   Vercel 会自动检测项目为 Vite 项目并使用正确的构建设置。
-    *   点击 "Deploy" 开始部署。
-
-### 8. CMS部署注意事项
+### 2. Firebase 无头服务器配置
 
 1. **Firebase项目设置**:
    - 访问[Firebase控制台](https://console.firebase.google.com/)

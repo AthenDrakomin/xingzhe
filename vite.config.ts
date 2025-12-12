@@ -9,8 +9,7 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks: {
-          vendor: ['react', 'react-dom'],
-          ai: ['@google/genai']
+          vendor: ['react', 'react-dom']
         }
       }
     },
