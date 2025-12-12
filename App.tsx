@@ -4,7 +4,7 @@ import { Page } from './types';
 import Home from './components/Home';
 import SideChannel from './components/SideChannel';
 import BroBadge from './components/BroBadge';
-import ErrorBoundary from './components/ErrorBoundary';
+import ErrorBoundary from './src/components/ErrorBoundary';
 import { CMSRoutes } from './src/cms/routes';
 // Lazy load components
 const Dynamics = lazy(() => import('./components/Dynamics'));
