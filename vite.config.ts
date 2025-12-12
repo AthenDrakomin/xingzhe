@@ -1,5 +1,9 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import dotenv from 'dotenv'
+
+// 加载 .env 文件
+dotenv.config()
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -19,5 +23,9 @@ export default defineConfig({
         drop_debugger: true
       }
     }
+  },
+  // 确保环境变量被正确传递
+  define: {
+    'process.env': process.env
   }
 })

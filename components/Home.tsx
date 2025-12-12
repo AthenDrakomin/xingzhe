@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Page } from '../types';
 import Button from './Button';
 import Card from './Card';
@@ -66,61 +66,6 @@ const Home: React.FC<HomeProps> = ({ setPage }) => {
           onClick={() => setPage('about')} 
           delay="300ms"
         />
-      </div>
-
-      {/* Charity Support Section */}
-      <div className="mt-16 p-6 bg-gradient-to-r from-emerald-900/20 to-teal-900/20 border border-emerald-800/30 rounded-lg backdrop-blur-sm w-full max-w-md mx-auto">
-        <div className="flex items-center justify-center mb-4">
-          {/* Love Relay Badge */}
-          <div className="relative inline-flex items-center justify-center mr-3">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 text-emerald-400" viewBox="0 0 20 20" fill="currentColor">
-              <path fillRule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clipRule="evenodd" />
-            </svg>
-            <div className="absolute -top-2 -right-2 bg-amber-400 text-amber-900 text-[8px] font-bold px-1.5 py-0.5 rounded-full border-2 border-emerald-900">
-              BRO
-            </div>
-          </div>
-          <h3 className="text-lg font-semibold text-emerald-300 serif">无国界援助组织</h3>
-        </div>
-        <p className="text-slate-300 text-center text-sm mb-4 leading-relaxed">
-          Support <a href="https://www.patreon.com/cw/borderlessrelief" target="_blank" rel="noopener noreferrer" className="text-emerald-400 hover:text-emerald-300 underline transition-colors">无国界援助组织 (BRO)</a>,
-          where love transcends borders and warms every heart in need.
-        </p>
-        <div className="flex justify-center gap-4">
-          <Button 
-            variant="primary"
-            size="sm"
-            onClick={() => window.open('https://www.patreon.com/cw/borderlessrelief', '_blank')}
-          >
-            前往支持
-          </Button>
-          <Button 
-            variant="secondary"
-            size="sm"
-            onClick={() => {
-              const shareText = '🌟 Join the Love Relay! Support 无国界援助组织 (BRO) - where compassion knows no boundaries. Be part of something bigger! 💙';
-              const shareUrl = 'https://www.patreon.com/cw/borderlessrelief';
-              if (navigator.share) {
-                navigator.share({
-                  title: '❤️ Love Relay - 无国界援助组织 (BRO)',
-                  text: shareText,
-                  url: shareUrl,
-                });
-              } else {
-                // Fallback for browsers that don't support Web Share API
-                const el = document.createElement('textarea');
-                el.value = `${shareText}\n\n${shareUrl}`;
-                document.body.appendChild(el);
-                el.select();
-                document.execCommand('copy');
-                document.body.removeChild(el);
-                alert('🔗 Link copied to clipboard! Share the love! ❤️');
-              }
-            }}
-          >
-            分享传播
-          </Button>
-        </div>
       </div>
 
       <footer className="mt-12 text-[10px] tracking-widest text-slate-600 serif uppercase opacity-60">

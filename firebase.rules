@@ -73,16 +73,19 @@ service cloud.firestore {
       allow delete: if isAdmin();
     }
     
-    // 用户集合规则（仅管理员可访问）
+    // 用户集合规则
     match /users/{userId} {
-      // 只有管理员可以读取用户信息
+      // 用户可以读取自己的信息
+      allow read: if isAuthenticated() && request.auth.uid == userId;
+      
+      // 管理员可以读取所有用户信息
       allow read: if isAdmin();
       
-      // 只有管理员可以创建用户记录
-      allow create: if isAdmin();
+      // 管理员可以创建用户记录，认证用户也可以创建自己的记录
+      allow create: if isAdmin() || (isAuthenticated() && request.auth.uid == userId);
       
-      // 只有管理员可以更新用户信息
-      allow update: if isAdmin();
+      // 用户可以更新自己的信息，管理员可以更新所有用户信息
+      allow update: if (isAuthenticated() && request.auth.uid == userId) || isAdmin();
       
       // 只有管理员可以删除用户记录
       allow delete: if isAdmin();

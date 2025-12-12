@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Page } from './types';
 import Home from './components/Home';
 import SideChannel from './components/SideChannel';
-import BroBadge from './components/BroBadge';
+import BorderlessReliefOrg from './components/BorderlessReliefOrg';
 import ErrorBoundary from './src/components/ErrorBoundary';
 import { CMSRoutes } from './src/cms/routes';
 // Lazy load components
@@ -62,14 +62,17 @@ const App: React.FC = () => {
           <div className="fixed inset-0 pointer-events-none bg-[radial-gradient(circle_at_center,_transparent_30%,_#000000_100%)] opacity-80 z-0"></div>
 
           <Routes>
-            {/* CMS Routes */}
+            {/* CMS Routes - 放在前面确保优先匹配 */}
             <Route path="/cms/*" element={<CMSRoutes />} />
             
             {/* Main App Routes */}
-            <Route path="/*" element={(
+            <Route path="*" element={(
               <>
                 {/* Side Channel Navigation */}
                 <SideChannel />
+                
+                {/* Borderless Relief Organization Component */}
+                <BorderlessReliefOrg />
                 
                 {/* Mobile Menu Button */}
                 {currentPage !== 'home' && (
@@ -162,9 +165,6 @@ const App: React.FC = () => {
                 <main className={`flex-1 overflow-hidden relative z-10 transition-all duration-500 ease-out ${transitioning ? 'opacity-0 scale-95 blur-sm' : 'opacity-100 scale-100 blur-0'} pl-14 md:pl-0`}>
                   {renderPage()}
                 </main>
-                
-                {/* BRO Badge */}
-                <BroBadge />
               </>
             )} />
           </Routes>
