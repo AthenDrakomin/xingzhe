@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Page } from '../types';
-import Button from './Button';
 import Card from './Card';
 
 interface HomeProps {
