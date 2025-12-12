@@ -1,7 +1,8 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { ChatState, Message, Role } from '../types';
-import { sendMessageToGemini, initializeChat } from '../services/gemini';
+import { sendMessageToAI, initializeAI, setAIProvider, AIProvider } from '../services/aiProvider';
 import ChatMessage from './ChatMessage';
+import Button from './Button';
 
 const INITIAL_MESSAGE = "施主，你我皆是这红尘中的迷途者。这里是「同病相怜」的回音壁，且留下一言，看看空谷有何回响。";
 
@@ -16,7 +17,7 @@ const Dynamics: React.FC = () => {
   
   // Initialize on mount
   useEffect(() => {
-    initializeChat();
+    initializeAI();
     const timer = setTimeout(() => {
         setChatState(prev => ({
             ...prev,
@@ -39,6 +40,24 @@ const Dynamics: React.FC = () => {
     if (!inputText.trim() || chatState.isLoading) return;
 
     const userMsgText = inputText.trim();
+    
+    // Input validation
+    if (userMsgText.length > 1000) {
+      setChatState((prev) => ({
+        ...prev,
+        error: "消息太长了，请保持在1000字符以内。",
+      }));
+      return;
+    }
+    
+    if (userMsgText.length < 1) {
+      setChatState((prev) => ({
+        ...prev,
+        error: "请输入一些内容再发送。",
+      }));
+      return;
+    }
+
     setInputText("");
 
     const newMessage: Message = {
@@ -56,7 +75,12 @@ const Dynamics: React.FC = () => {
     }));
 
     try {
-      const responseText = await sendMessageToGemini(userMsgText);
+      const responseText = await sendMessageToAI(userMsgText);
+      
+      // Validate AI response
+      if (!responseText || responseText.trim().length === 0) {
+        throw new Error("AI返回了空响应");
+      }
       
       const aiMessage: Message = {
         id: (Date.now() + 1).toString(),
@@ -72,11 +96,19 @@ const Dynamics: React.FC = () => {
       }));
 
     } catch (err) {
+      console.error("Error sending message to AI:", err);
       setChatState((prev) => ({
         ...prev,
         isLoading: false,
-        error: "网络亦如红尘般断续 (网络错误).",
+        error: "网络亦如红尘般断续 (网络错误)，请稍后再试。",
       }));
+    }
+  };
+
+  const handleInputKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      handleSendMessage();
     }
   };
 
@@ -103,7 +135,7 @@ const Dynamics: React.FC = () => {
           )}
 
           {chatState.error && (
-             <div className="text-center py-4 text-red-900/50 text-xs tracking-widest">
+             <div className="text-center py-4 text-red-900/50 text-xs tracking-widest" role="alert" aria-live="polite">
                 {chatState.error}
              </div>
           )}
@@ -112,23 +144,26 @@ const Dynamics: React.FC = () => {
       </div>
 
       {/* Input Area - Integrated with the dark theme */}
-      <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black via-black/90 to-transparent pb-6 pt-10 px-4 z-20">
-        <div className="max-w-2xl mx-auto flex gap-4">
+      <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black via-black/90 to-transparent pb-6 pt-8 px-4 z-20">
+        <div className="max-w-2xl mx-auto flex flex-col sm:flex-row gap-3">
           <input
             type="text"
             value={inputText}
             onChange={(e) => setInputText(e.target.value)}
-            onKeyDown={(e) => e.key === 'Enter' && handleSendMessage()}
+            onKeyDown={handleInputKeyDown}
             placeholder="写下你的感悟..."
-            className="flex-1 bg-white/[0.03] border border-white/10 rounded-sm px-6 py-4 text-slate-300 focus:outline-none focus:border-white/20 focus:bg-white/[0.05] transition-all placeholder-slate-700 text-sm font-light tracking-wide shadow-inner"
+            className="flex-1 bg-white/[0.03] border border-white/10 rounded-sm px-4 py-3 sm:px-6 sm:py-4 text-slate-300 focus:outline-none focus:border-white/20 focus:bg-white/[0.05] transition-all placeholder-slate-700 text-sm font-light tracking-wide shadow-inner min-h-[48px]"
+            aria-label="输入消息"
           />
-          <button 
+          <Button
+            variant="ghost"
+            size="lg"
             onClick={handleSendMessage}
             disabled={!inputText.trim() || chatState.isLoading}
-            className="bg-slate-900/50 hover:bg-slate-800 disabled:opacity-30 disabled:hover:bg-slate-900/50 text-slate-400 hover:text-white px-8 py-2 rounded-sm text-xs tracking-[0.2em] transition-all border border-white/10 hover:border-white/20 uppercase"
+            aria-label="发送消息"
           >
             Send
-          </button>
+          </Button>
         </div>
       </div>
     </div>

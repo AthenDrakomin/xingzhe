@@ -29,16 +29,16 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
   }, [message.text, isUser]);
 
   return (
-    <div className={`flex w-full mb-10 ${isUser ? 'justify-end' : 'justify-start'} animate-fade-in-up`}>
-      <div className={`max-w-[85%] md:max-w-[70%] flex flex-col ${isUser ? 'items-end' : 'items-start'}`}>
+    <div className={`flex w-full mb-8 ${isUser ? 'justify-end' : 'justify-start'} animate-fade-in-up`}>
+      <div className={`max-w-[90%] md:max-w-[70%] flex flex-col ${isUser ? 'items-end' : 'items-start'}`}>
         
-        <span className="text-[9px] uppercase tracking-widest text-slate-600 mb-3 opacity-80">
+        <span className="text-[8px] md:text-[9px] uppercase tracking-widest text-slate-600 mb-2 opacity-80">
           {isUser ? 'You' : 'The Monk'}
         </span>
 
         <div 
           className={`
-            relative p-6 rounded-sm leading-relaxed text-base md:text-lg serif min-w-[60px] backdrop-blur-sm transition-all duration-300
+            relative p-4 md:p-6 rounded-sm leading-relaxed text-base md:text-lg serif min-w-[60px] backdrop-blur-sm transition-all duration-300
             ${isUser 
               ? 'bg-gradient-to-br from-slate-800/80 to-slate-900/80 text-slate-200 border border-white/10 shadow-[0_4px_20px_-5px_rgba(0,0,0,0.5)]' 
               : 'bg-black/40 text-slate-300 border border-white/5 shadow-none'
@@ -58,7 +58,7 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
           <div className={`absolute w-1.5 h-1.5 opacity-50 ${isUser ? 'bottom-0 right-0 border-b border-r border-slate-400' : 'top-0 left-0 border-t border-l border-slate-500'}`}></div>
         </div>
 
-        <span className="text-[9px] text-slate-700 mt-2 font-mono opacity-50">
+        <span className="text-[8px] md:text-[9px] text-slate-700 mt-1 font-mono opacity-50">
             {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
         </span>
 

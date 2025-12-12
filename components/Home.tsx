@@ -1,5 +1,7 @@
 import React from 'react';
 import { Page } from '../types';
+import Button from './Button';
+import Card from './Card';
 
 interface HomeProps {
   setPage: (page: Page) => void;
@@ -23,6 +25,7 @@ const Home: React.FC<HomeProps> = ({ setPage }) => {
           src="https://api.dicebear.com/7.x/notionists/svg?seed=Felix&backgroundColor=e2e8f0" 
           alt="Avatar" 
           className="w-full h-full rounded-full border border-white/10 grayscale contrast-125 hover:grayscale-0 transition-all duration-700 relative z-10 bg-black shadow-2xl"
+          loading="lazy"
         />
         <div className="absolute bottom-1 right-1 w-3 h-3 bg-emerald-800/80 border border-black rounded-full z-20 animate-pulse shadow-[0_0_10px_rgba(6,95,70,0.5)]"></div>
       </div>
@@ -37,7 +40,7 @@ const Home: React.FC<HomeProps> = ({ setPage }) => {
       </div>
 
       {/* Navigation Grid */}
-      <div className="grid grid-cols-2 gap-4 w-full md:w-[500px]">
+      <div className="grid grid-cols-2 gap-3 w-full md:gap-4 md:w-[500px]">
         <NavCard 
           title="博客" 
           subtitle="文以载道" 
@@ -66,7 +69,7 @@ const Home: React.FC<HomeProps> = ({ setPage }) => {
       </div>
 
       {/* Charity Support Section */}
-      <div className="mt-16 mb-8 p-6 bg-gradient-to-r from-emerald-900/20 to-teal-900/20 border border-emerald-800/30 rounded-lg backdrop-blur-sm w-full max-w-md mx-auto bg-[#020617]/80">
+      <div className="mt-16 p-6 bg-gradient-to-r from-emerald-900/20 to-teal-900/20 border border-emerald-800/30 rounded-lg backdrop-blur-sm w-full max-w-md mx-auto">
         <div className="flex items-center justify-center mb-4">
           {/* Love Relay Badge */}
           <div className="relative inline-flex items-center justify-center mr-3">
@@ -77,26 +80,29 @@ const Home: React.FC<HomeProps> = ({ setPage }) => {
               BRO
             </div>
           </div>
-          <h3 className="text-lg font-semibold text-emerald-300 serif">爱心传递</h3>
+          <h3 className="text-lg font-semibold text-emerald-300 serif">无国界援助组织</h3>
         </div>
         <p className="text-slate-300 text-center text-sm mb-4 leading-relaxed">
-          Support <a href="https://www.patreon.com/cw/borderlessrelief" target="_blank" rel="noopener noreferrer" className="text-emerald-400 hover:text-emerald-300 underline transition-colors">Borderless Relief Organization (BRO)</a>,
+          Support <a href="https://www.patreon.com/cw/borderlessrelief" target="_blank" rel="noopener noreferrer" className="text-emerald-400 hover:text-emerald-300 underline transition-colors">无国界援助组织 (BRO)</a>,
           where love transcends borders and warms every heart in need.
         </p>
         <div className="flex justify-center gap-4">
-          <button 
+          <Button 
+            variant="primary"
+            size="sm"
             onClick={() => window.open('https://www.patreon.com/cw/borderlessrelief', '_blank')}
-            className="px-4 py-2 bg-emerald-700 hover:bg-emerald-600 text-white text-sm rounded-sm transition-colors duration-300"
           >
             前往支持
-          </button>
-          <button 
+          </Button>
+          <Button 
+            variant="secondary"
+            size="sm"
             onClick={() => {
-              const shareText = '🌟 Join the Love Relay! Support Borderless Relief Organization (BRO) - where compassion knows no boundaries. Be part of something bigger! 💙';
+              const shareText = '🌟 Join the Love Relay! Support 无国界援助组织 (BRO) - where compassion knows no boundaries. Be part of something bigger! 💙';
               const shareUrl = 'https://www.patreon.com/cw/borderlessrelief';
               if (navigator.share) {
                 navigator.share({
-                  title: '❤️ Love Relay - Borderless Relief Organization (BRO)',
+                  title: '❤️ Love Relay - 无国界援助组织 (BRO)',
                   text: shareText,
                   url: shareUrl,
                 });
@@ -111,14 +117,13 @@ const Home: React.FC<HomeProps> = ({ setPage }) => {
                 alert('🔗 Link copied to clipboard! Share the love! ❤️');
               }
             }}
-            className="px-4 py-2 border border-emerald-700 text-emerald-400 hover:bg-emerald-900/30 text-sm rounded-sm transition-colors duration-300"
           >
             分享传播
-          </button>
+          </Button>
         </div>
       </div>
 
-      <footer className="mt-20 text-[10px] tracking-widest text-slate-600 serif uppercase opacity-60">
+      <footer className="mt-12 text-[10px] tracking-widest text-slate-600 serif uppercase opacity-60">
         © {new Date().getFullYear()} • 托管于 GitHub
       </footer>
     </div>
@@ -130,24 +135,23 @@ const NavCard = ({ title, subtitle, onClick, highlight = false, delay }: { title
     onClick={onClick}
     style={{ animationDelay: delay }}
     className={`
-      relative group overflow-hidden p-6 text-left border rounded-sm transition-all duration-500 animate-fade-in-up
-      ${highlight 
-        ? 'border-white/10 bg-white/[0.03] hover:border-white/20' 
-        : 'border-white/5 bg-transparent hover:border-white/10 hover:bg-white/[0.02]'
-      }
+      relative group overflow-hidden p-5 md:p-6 text-left transition-all duration-500 animate-fade-in-up w-full
     `}
+    aria-label={`${title} 页面`}
   >
-    <div className="relative z-10 flex flex-col items-start gap-1">
-      <span className={`block serif text-xl tracking-wide transition-colors duration-300 ${highlight ? 'text-slate-100' : 'text-slate-400 group-hover:text-slate-200'}`}>
-        {title}
-      </span>
-      <span className="text-[9px] tracking-[0.3em] text-slate-600 group-hover:text-emerald-500/70 transition-colors duration-300 uppercase font-medium">
-        {subtitle}
-      </span>
-    </div>
-    
-    {/* Subtle gradient shine on hover */}
-    <div className={`absolute inset-0 bg-gradient-to-tr from-white/[0.05] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out pointer-events-none`}></div>
+    <Card variant={highlight ? 'highlight' : 'default'} className="h-full">
+      <div className="relative z-10 flex flex-col items-start gap-1">
+        <span className={`block serif text-lg md:text-xl tracking-wide transition-colors duration-300 ${highlight ? 'text-slate-100' : 'text-slate-400 group-hover:text-slate-200'}`}>
+          {title}
+        </span>
+        <span className="text-[8px] md:text-[9px] tracking-[0.3em] text-slate-600 group-hover:text-emerald-500/70 transition-colors duration-300 uppercase font-medium">
+          {subtitle}
+        </span>
+      </div>
+      
+      {/* Subtle gradient shine on hover */}
+      <div className={`absolute inset-0 bg-gradient-to-tr from-white/[0.05] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out pointer-events-none`}></div>
+    </Card>
   </button>
 );
 
