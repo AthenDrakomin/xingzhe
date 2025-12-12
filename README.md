@@ -173,6 +173,31 @@ src/cms/
 5.  **触发部署**:
     *   推送代码到 `main` 分支，或者在 Actions 标签页手动触发 "Clean Deploy to GitHub Pages" 工作流。
 
+## 🚀 Vercel 部署指南
+
+本项目也支持部署到 Vercel 平台，享受其全球 CDN 和自动优化功能。
+
+1.  **注册 Vercel 账户**:
+    *   访问 [Vercel官网](https://vercel.com/) 并使用 GitHub 账户登录。
+2.  **导入项目**:
+    *   点击 "New Project"。
+    *   从 GitHub 仓库列表中选择此项目。
+3.  **配置环境变量**:
+    *   在项目设置中，进入 "Environment Variables" 部分。
+    *   添加以下环境变量：
+        - `VITE_API_KEY`: 你的 Google Gemini API Key
+        - `VITE_AI_PROVIDER`: AI提供商 (默认为 `gemini`)
+        - Firebase相关密钥（如需要CMS功能）:
+          - `FIREBASE_API_KEY`
+          - `FIREBASE_AUTH_DOMAIN`
+          - `FIREBASE_PROJECT_ID`
+          - `FIREBASE_STORAGE_BUCKET`
+          - `FIREBASE_MESSAGING_SENDER_ID`
+          - `FIREBASE_APP_ID`
+4.  **部署**:
+    *   Vercel 会自动检测项目为 Vite 项目并使用正确的构建设置。
+    *   点击 "Deploy" 开始部署。
+
 ### 8. CMS部署注意事项
 
 1. **Firebase项目设置**:
