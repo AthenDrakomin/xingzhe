@@ -2,7 +2,6 @@
 import { initializeApp } from 'firebase/app';
 import { getFirestore } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
-import { getStorage } from 'firebase/storage';
 
 // Firebase配置 - 在实际项目中，这些值应该从环境变量中获取
 const firebaseConfig = {
@@ -20,6 +19,5 @@ const app = initializeApp(firebaseConfig);
 // 初始化Firebase服务
 export const db = getFirestore(app);
 export const auth = getAuth(app);
-export const storage = getStorage(app);
 
 export default app;

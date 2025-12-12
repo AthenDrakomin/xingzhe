@@ -3,6 +3,7 @@ import { useMedia } from '../../hooks/useMedia';
 import { mediaApi } from '../../services/api';
 import { useAuth } from '../../hooks/useAuth';
 import { PermissionService } from '../../services/permissions';
+import { Media } from '../../types/media';
 
 const MediaManager: React.FC = () => {
   const { media, isLoading, isError, mutate } = useMedia();
@@ -28,9 +29,29 @@ const MediaManager: React.FC = () => {
       setUploading(true);
       setError(null);
 
-      // 逐个上传文件
+      // 逐个处理文件并转换为Base64
       for (let i = 0; i < files.length; i++) {
-        await mediaApi.upload(files[i], user.id);
+        const file = files[i];
+        
+        // 将文件转换为Base64
+        const base64 = await new Promise<string>((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = () => resolve(reader.result as string);
+          reader.onerror = reject;
+          reader.readAsDataURL(file);
+        });
+
+        // 创建媒体记录
+        const mediaData: Omit<Media, 'id'> = {
+          filename: file.name,
+          url: base64, // 存储Base64数据而不是URL
+          mimeType: file.type,
+          size: file.size,
+          uploadedBy: user.id,
+          createdAt: new Date()
+        };
+
+        await mediaApi.create(mediaData);
       }
 
       // 重新获取媒体列表

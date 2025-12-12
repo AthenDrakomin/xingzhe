@@ -1,4 +1,4 @@
-import { db, storage } from './firebase';
+import { db } from './firebase';
 import { 
   collection, 
   doc, 
@@ -12,11 +12,6 @@ import {
   limit, 
   Timestamp 
 } from 'firebase/firestore';
-import { 
-  ref, 
-  uploadBytes, 
-  getDownloadURL 
-} from 'firebase/storage';
 import { Article, ArticleFormData } from '../types/article';
 import { Page, PageFormData } from '../types/page';
 import { Media } from '../types/media';
@@ -165,36 +160,15 @@ export const pageApi = {
   }
 };
 
-// 媒体相关API
+// 媒体相关API - 修改为使用Base64编码存储图片数据
 export const mediaApi = {
-  // 上传文件
-  upload: async (file: File, userId: string): Promise<Media> => {
-    // 创建存储引用
-    const storageRef = ref(storage, `media/${Date.now()}-${file.name}`);
-    
-    // 上传文件
-    const snapshot = await uploadBytes(storageRef, file);
-    
-    // 获取下载URL
-    const downloadURL = await getDownloadURL(snapshot.ref);
-    
-    // 保存媒体信息到Firestore
-    const mediaData = {
-      filename: file.name,
-      url: downloadURL,
-      mimeType: file.type,
-      size: file.size,
-      uploadedBy: userId,
+  // 创建媒体记录（不上传文件，而是存储Base64数据）
+  create: async (data: Omit<Media, 'id'>): Promise<string> => {
+    const docRef = await addDoc(collection(db, 'media'), {
+      ...data,
       createdAt: Timestamp.now()
-    };
-    
-    const docRef = await addDoc(collection(db, 'media'), mediaData);
-    
-    return {
-      id: docRef.id,
-      ...mediaData,
-      createdAt: convertTimestamp(mediaData.createdAt)
-    };
+    });
+    return docRef.id;
   },
 
   // 获取所有媒体
