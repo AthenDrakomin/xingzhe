@@ -1,0 +1,285 @@
+# 导入所需库
+from flask import Flask, render_template_string, request, redirect, url_for
+import json
+import os
+
+# 初始化 Flask 应用
+app = Flask(__name__)
+
+# 定义提示词存储文件（Replit 中持久化）
+PROMPTS_FILE = "prompts.json"
+
+# 初始化提示词数据（如果文件不存在则创建空列表）
+def init_prompts():
+    if not os.path.exists(PROMPTS_FILE):
+        with open(PROMPTS_FILE, "w", encoding="utf-8") as f:
+            json.dump([], f, ensure_ascii=False, indent=2)
+
+# 读取所有提示词
+def get_all_prompts():
+    init_prompts()
+    with open(PROMPTS_FILE, "r", encoding="utf-8") as f:
+        return json.load(f)
+
+# 保存提示词到文件
+def save_prompt(prompt_data):
+    prompts = get_all_prompts()
+    # 如果是编辑（有id），则替换原有数据
+    if "id" in prompt_data:
+        for i, p in enumerate(prompts):
+            if p["id"] == prompt_data["id"]:
+                prompts[i] = prompt_data
+                break
+    else:
+        # 新增：自动生成唯一id（用时间戳+长度）
+        prompt_data["id"] = str(len(prompts) + 1) + "_" + str(os.urandom(4).hex())
+        prompts.append(prompt_data)
+    # 写入文件
+    with open(PROMPTS_FILE, "w", encoding="utf-8") as f:
+        json.dump(prompts, f, ensure_ascii=False, indent=2)
+
+# 删除指定id的提示词
+def delete_prompt(prompt_id):
+    prompts = get_all_prompts()
+    new_prompts = [p for p in prompts if p["id"] != prompt_id]
+    with open(PROMPTS_FILE, "w", encoding="utf-8") as f:
+        json.dump(new_prompts, f, ensure_ascii=False, indent=2)
+
+# 获取单个提示词（用于编辑）
+def get_prompt_by_id(prompt_id):
+    prompts = get_all_prompts()
+    for p in prompts:
+        if p["id"] == prompt_id:
+            return p
+    return None
+
+# ------------------- 路由定义 -------------------
+# 首页：显示所有提示词 + 添加表单
+@app.route("/", methods=["GET", "POST"])
+def index():
+    if request.method == "POST":
+        # 处理添加/编辑提示词的提交
+        prompt_data = {
+            "title": request.form.get("title"),
+            "content": request.form.get("content"),
+            "category": request.form.get("category", "未分类")
+        }
+        # 如果是编辑，带上id
+        if request.form.get("prompt_id"):
+            prompt_data["id"] = request.form.get("prompt_id")
+        save_prompt(prompt_data)
+        return redirect(url_for("index"))
+    
+    # GET 请求：显示列表和空表单
+    prompts = get_all_prompts()
+    return render_template_string(HTML_TEMPLATE, prompts=prompts, edit_prompt=None)
+
+# 编辑提示词：跳转到带数据的表单
+@app.route("/edit/<prompt_id>")
+def edit(prompt_id):
+    prompt = get_prompt_by_id(prompt_id)
+    prompts = get_all_prompts()
+    return render_template_string(HTML_TEMPLATE, prompts=prompts, edit_prompt=prompt)
+
+# 删除提示词
+@app.route("/delete/<prompt_id>")
+def delete(prompt_id):
+    delete_prompt(prompt_id)
+    return redirect(url_for("index"))
+
+# ------------------- 前端模板（已替换为你的两个链接） -------------------
+HTML_TEMPLATE = """
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Replit 提示词管理器</title>
+    <!-- 引入Font Awesome图标库 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
+        body { max-width: 1200px; margin: 20px auto; padding: 0 20px; background: #f5f5f5; }
+        .container { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); margin-top: 70px; }
+        h1 { color: #333; margin-bottom: 20px; text-align: center; }
+        .form-section { margin-bottom: 30px; padding: 20px; border: 1px solid #eee; border-radius: 6px; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; color: #555; }
+        input, textarea, select { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px; }
+        textarea { min-height: 150px; resize: vertical; }
+        button { background: #4CAF50; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; font-size: 14px; }
+        button:hover { background: #45a049; }
+        .prompts-list { margin-top: 30px; }
+        .prompt-item { background: #f9f9f9; padding: 15px; margin-bottom: 10px; border-radius: 6px; border-left: 4px solid #4CAF50; }
+        .prompt-title { font-size: 18px; font-weight: bold; margin-bottom: 5px; color: #333; }
+        .prompt-category { font-size: 12px; color: #888; margin-bottom: 10px; }
+        .prompt-content { white-space: pre-wrap; color: #555; line-height: 1.6; margin-bottom: 10px; }
+        .prompt-actions { margin-top: 10px; }
+        .prompt-actions a, .copy-btn { 
+            display: inline-block; 
+            margin-right: 10px; 
+            text-decoration: none; 
+            font-size: 14px; 
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .edit-link { color: #2196F3; border: 1px solid #2196F3; }
+        .edit-link:hover { background: #e3f2fd; }
+        .delete-link { color: #f44336; border: 1px solid #f44336; }
+        .delete-link:hover { background: #ffebee; }
+        .copy-btn { color: #ff9800; border: 1px solid #ff9800; }
+        .copy-btn:hover { background: #fff3e0; }
+        /* 复制成功提示 */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 4px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 9999;
+        }
+        .toast.show {
+            opacity: 1;
+        }
+        /* 右上角图标链接样式 */
+        .icon-links {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9998;
+            display: flex;
+            gap: 15px;
+        }
+        .icon-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            color: #333;
+            font-size: 20px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        .icon-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            color: #4CAF50; /* hover时变绿色 */
+        }
+        /* 不同图标不同hover颜色 */
+        .icon-link.bookmark:hover { color: #2196F3; } /* 书签图标hover变蓝色 */
+        .icon-link.github:hover { color: #6e5494; } /* GitHub图标hover变紫色 */
+    </style>
+</head>
+<body>
+    <!-- 右上角图标链接区域（已替换为你的两个链接） -->
+    <div class="icon-links">
+        <!-- 第一个图标：你的Replit书签 -->
+        <a href="https://nei-rong-gou-jian-zhong-wen--guanyu432hz.replit.app/" target="_blank" class="icon-link bookmark" title="我的Replit书签">
+            <i class="fas fa-bookmark"></i>
+        </a>
+        <!-- 第二个图标：你的GitHub Dashboard -->
+        <a href="https://github.com/dashboard" target="_blank" class="icon-link github" title="我的GitHub">
+            <i class="fab fa-github"></i>
+        </a>
+    </div>
+
+    <div class="container">
+        <h1>提示词管理器</h1>
+
+        <!-- 添加/编辑提示词表单 -->
+        <div class="form-section">
+            <h2>{{ '编辑提示词' if edit_prompt else '添加新提示词' }}</h2>
+            <form method="POST">
+                <input type="hidden" name="prompt_id" value="{{ edit_prompt.id if edit_prompt else '' }}">
+                <div class="form-group">
+                    <label for="title">标题（必填）</label>
+                    <input type="text" id="title" name="title" value="{{ edit_prompt.title if edit_prompt else '' }}" required>
+                </div>
+                <div class="form-group">
+                    <label for="category">分类（可选）</label>
+                    <input type="text" id="category" name="category" value="{{ edit_prompt.category if edit_prompt else '未分类' }}">
+                </div>
+                <div class="form-group">
+                    <label for="content">提示词内容（必填）</label>
+                    <textarea id="content" name="content" required>{{ edit_prompt.content if edit_prompt else '' }}</textarea>
+                </div>
+                <button type="submit">{{ '保存修改' if edit_prompt else '添加提示词' }}</button>
+            </form>
+        </div>
+
+        <!-- 提示词列表 -->
+        <div class="prompts-list">
+            <h2>我的提示词列表（共 {{ len(prompts) }} 条）</h2>
+            {% if prompts %}
+                {% for prompt in prompts %}
+                    <div class="prompt-item">
+                        <div class="prompt-title">{{ prompt.title }}</div>
+                        <div class="prompt-category">分类：{{ prompt.category }}</div>
+                        <div class="prompt-content" id="prompt-{{ prompt.id }}">{{ prompt.content }}</div>
+                        <div class="prompt-actions">
+                            <a href="/edit/{{ prompt.id }}" class="edit-link">编辑</a>
+                            <a href="/delete/{{ prompt.id }}" class="delete-link" onclick="return confirm('确定要删除这条提示词吗？')">删除</a>
+                            <span class="copy-btn" onclick="copyToClipboard('{{ prompt.id }}')">复制内容</span>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p style="text-align: center; color: #888; margin-top: 20px;">暂无提示词，赶紧添加吧！</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- 复制成功提示框 -->
+    <div class="toast" id="toast">复制成功！</div>
+
+    <script>
+        // 复制到剪贴板函数
+        function copyToClipboard(promptId) {
+            // 获取提示词内容
+            const content = document.getElementById('prompt-' + promptId).textContent;
+            
+            // 使用剪贴板API复制
+            navigator.clipboard.writeText(content)
+                .then(() => {
+                    // 显示成功提示
+                    showToast();
+                })
+                .catch(err => {
+                    // 兼容备用方案（创建临时输入框）
+                    const tempInput = document.createElement('textarea');
+                    tempInput.value = content;
+                    document.body.appendChild(tempInput);
+                    tempInput.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(tempInput);
+                    showToast();
+                });
+        }
+
+        // 显示提示弹窗
+        function showToast() {
+            const toast = document.getElementById('toast');
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
+"""
+
+# 启动应用（适配 Replit 端口）
+if __name__ == "__main__":
+    # Replit 会自动分配 PORT 环境变量
+    port = int(os.environ.get("PORT", 8080))
+    app.run(host="0.0.0.0", port=port, debug=True)
